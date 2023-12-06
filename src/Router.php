@@ -2,6 +2,7 @@
 
 namespace App;
 
+use ReflectionClass;
 use ReflectionMethod;
 
 class Router {
@@ -17,7 +18,7 @@ class Router {
         foreach ($controllers as $controller) {
             $controller = str_replace('.php', '', $controller);
             $controller = substr($controller, 12 + strpos($controller, '/Controller/'));
-            $reflectionClass = new \ReflectionClass('App\\Controller\\' . $controller);
+            $reflectionClass = new ReflectionClass('App\\Controller\\' . $controller);
             $methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
             if (count($methods) > 0) {
                 foreach ($methods as $method) {
@@ -44,7 +45,25 @@ class Router {
             $controller = new $controller();
             $controller->{$route->getAction()}();
         } else {
-            echo '404';
+            $this->redirectToRoute('error.404');
+        }
+    }
+
+    public function redirectToRoute(string $routeName, array $params = []) {
+        $route = array_filter($this->routes, function ($route) use ($routeName) {
+            return $route->getName() === $routeName;
+        });
+
+        if (count($route) === 1) {
+            $route = array_shift($route);
+            $uri = $route->getPath();
+            if (count($params) > 0) {
+                $uri .= '?' . http_build_query($params);
+            }
+            header('Location: ' . $uri, true, 302);
+            exit;
+        } else {
+            $this->redirectToRoute('error.404');
         }
     }
 }

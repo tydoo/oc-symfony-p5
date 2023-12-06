@@ -6,8 +6,13 @@ use App\Route;
 
 class HomeController extends AbstractController {
 
-    #[Route(path: '/', name: 'home')]
+    #[Route(path: '/', name: 'index')]
     public function index() {
-        echo 'Hello world!';
+        return $this->redirectToRoute('home');
+    }
+
+    #[Route(path: '/home', name: 'home')]
+    public function home() {
+        return $this->response('home.html.twig');
     }
 }

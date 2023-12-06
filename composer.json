@@ -11,5 +11,9 @@
     },
     "require-dev": {
         "symfony/error-handler": "^7.0"
+    },
+    "require": {
+        "php": "^8.2",
+        "twig/twig": "^3.8"
     }
 }
