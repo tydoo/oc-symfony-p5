@@ -33,7 +33,7 @@ class Router {
         }
     }
 
-    public function run($uri) {
+    public function run(string $uri) {
         $route = array_filter($this->routes, function ($route) use ($uri) {
             return $route->getPath() === $uri;
         });
