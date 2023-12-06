@@ -7,8 +7,8 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 class AbstractController {
-    private function render(string $path, array $params = []) {
-        $templatesDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'templates';
+    private function render(string $path, array $params = []): void {
+        $templatesDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'templates';
         $loader = new FilesystemLoader($templatesDir);
         $twig = new Environment($loader, [
             'cache' => false,

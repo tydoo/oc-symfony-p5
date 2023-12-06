@@ -13,7 +13,7 @@ class Router {
         $this->registerRoutes();
     }
 
-    private function registerRoutes() {
+    private function registerRoutes(): void {
         $controllers = glob(__DIR__ . '/Controller/*.php');
         foreach ($controllers as $controller) {
             $controller = str_replace('.php', '', $controller);
@@ -35,7 +35,7 @@ class Router {
     }
 
     public function run(string $uri) {
-        $route = array_filter($this->routes, function ($route) use ($uri) {
+        $route = array_filter($this->routes, function (Route $route) use ($uri) {
             return $route->getPath() === $uri;
         });
 
@@ -49,8 +49,8 @@ class Router {
         }
     }
 
-    public function redirectToRoute(string $routeName, array $params = []) {
-        $route = array_filter($this->routes, function ($route) use ($routeName) {
+    public function redirectToRoute(string $routeName, array $params = []): void {
+        $route = array_filter($this->routes, function (Route $route) use ($routeName) {
             return $route->getName() === $routeName;
         });
 
@@ -61,7 +61,6 @@ class Router {
                 $uri .= '?' . http_build_query($params);
             }
             header('Location: ' . $uri, true, 302);
-            exit;
         } else {
             $this->redirectToRoute('error.404');
         }
