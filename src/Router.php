@@ -4,6 +4,7 @@ namespace App;
 
 use ReflectionClass;
 use ReflectionMethod;
+use App\Controller\ErrorController;
 
 class Router {
 
@@ -36,7 +37,7 @@ class Router {
 
     public function run(string $uri) {
         $route = array_filter($this->routes, function (Route $route) use ($uri) {
-            return $route->getPath() === $uri;
+            return $route->getPath() === $uri && in_array($_SERVER['REQUEST_METHOD'], $route->getMethods());
         });
 
         if (count($route) === 1) {
@@ -45,7 +46,7 @@ class Router {
             $controller = new $controller();
             $controller->{$route->getAction()}();
         } else {
-            $this->redirectToRoute('error.404');
+            $this->loadError404();
         }
     }
 
@@ -62,7 +63,12 @@ class Router {
             }
             header('Location: ' . $uri, true, 302);
         } else {
-            $this->redirectToRoute('error.404');
+            $this->loadError404();
         }
+    }
+
+    private function loadError404() {
+        $error = new ErrorController();
+        $error->notFound();
     }
 }
