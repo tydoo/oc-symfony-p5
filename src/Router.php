@@ -50,7 +50,7 @@ class Router {
         }
     }
 
-    public function redirectToRoute(string $routeName, array $params = []): void {
+    public function getUriFromRoute(string $routeName, array $params = []): string {
         $route = array_filter($this->routes, function (Route $route) use ($routeName) {
             return $route->getName() === $routeName;
         });
@@ -61,7 +61,7 @@ class Router {
             if (count($params) > 0) {
                 $uri .= '?' . http_build_query($params);
             }
-            header('Location: ' . $uri, true, 302);
+            return $uri;
         } else {
             $this->loadError404();
         }

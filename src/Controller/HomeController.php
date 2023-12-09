@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
+use App\RedirectResponse;
+use App\Response;
 use App\Route;
 
-class HomeController extends AbstractController {
+class HomeController {
 
     #[Route(path: '/', name: 'index')]
-    public function index() {
-        return $this->redirectToRoute('home');
+    public function index(): RedirectResponse {
+        return new RedirectResponse('home');
     }
 
     #[Route(path: '/home', name: 'home')]
-    public function home() {
-        return $this->response('home.html.twig');
+    public function home(): Response {
+        return new Response('home.html.twig');
     }
 }
