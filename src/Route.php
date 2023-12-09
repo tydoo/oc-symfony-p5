@@ -29,19 +29,23 @@ class Route {
         return $this->methods;
     }
 
-    public function setController(string $controller) {
-        $this->controller = $controller;
-    }
-
     public function getController(): string {
         return $this->controller;
     }
 
-    public function setAction(string $action) {
-        $this->action = $action;
+    public function setController(string $controller): self {
+        $this->controller = $controller;
+
+        return $this;
     }
 
     public function getAction(): string {
         return $this->action;
+    }
+
+    public function setAction(string $action): self {
+        $this->action = $action;
+
+        return $this;
     }
 }
