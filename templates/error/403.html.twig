@@ -1,1 +1,17 @@
-C'est une erreur 403 !
+{% extends "layout.html.twig" %}
+{% block title 'Erreur interne du serveur' %}
+{% block body %}
+	<section class="error-wrap space-bottom-60 space-top-60 bg-color-light-1 transition-default">
+		<div class="container">
+			<div class="error-box img-height-100">
+				<img src="/assets/media/elements/multiply_angle.png" alt="500" style="height:499px;">
+				<h2 class="title" style="margin-top:50px;">Zone interdite !</h2>
+				<p class="description">Stop ! Vous vous approchez d'une zone interdite. Nos gardiens numériques ont bloqué l'accès. Assurez-vous d'avoir les clés appropriées, sinon rebroussez chemin. Pour toute assistance, contactez-nous.</p>
+				<a href="/home" class="axil-btn axil-btn-fill axil-btn-dark axil-btn-large">Retourner à l'accueil<div class="icon-holder">
+						<i class="regular-arrow-back"></i>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}

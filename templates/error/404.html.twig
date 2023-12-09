@@ -1,1 +1,17 @@
-C'est une erreur 404 !
+{% extends "layout.html.twig" %}
+{% block title 'Page non trouvée' %}
+{% block body %}
+	<section class="error-wrap space-bottom-60 space-top-60 bg-color-light-1 transition-default">
+		<div class="container">
+			<div class="error-box img-height-100">
+				<img width="810" height="499" src="/assets/media/elements/404.webp" alt="404">
+				<h2 class="title">Page non trouvée</h2>
+				<p class="description">Oops ! Vous avez dévié vers une dimension inexistante. Revenez à la réalité en cliquant ci-dessous. Les erreurs 404 font partie du voyage, n'est-ce pas ?</p>
+				<a href="/home" class="axil-btn axil-btn-fill axil-btn-dark axil-btn-large">Retourner à l'accueil<div class="icon-holder">
+						<i class="regular-arrow-back"></i>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}
