@@ -37,14 +37,29 @@ class Router {
 
     public function run(string $uri) {
         $route = array_filter($this->routes, function (Route $route) use ($uri) {
-            return $route->getPath() === $uri && in_array($_SERVER['REQUEST_METHOD'], $route->getMethods());
+            $path = $route->getPath();
+            if (strpos($path, '{id}') !== false) {
+                $path = str_replace('{id}', '(\d+)', $path);
+                if (preg_match("#^{$path}$#", $uri) && in_array($_SERVER['REQUEST_METHOD'], $route->getMethods())) {
+                    return true;
+                }
+            } else if ($path === $uri && in_array($_SERVER['REQUEST_METHOD'], $route->getMethods())) {
+                return true;
+            }
+            return false;
         });
 
         if (count($route) === 1) {
             $route = array_shift($route);
             $controller = 'App\\Controller\\' . $route->getController();
             $controller = new $controller();
-            $controller->{$route->getAction()}();
+            $id = null;
+            if (strpos($route->getPath(), '{id}') !== false) {
+                $path = str_replace('{id}', '(\d+)', $route->getPath());
+                preg_match("#^{$path}$#", $uri, $matches);
+                $id = $matches[1];
+            }
+            $controller->{$route->getAction()}($id);
         } else {
             $this->loadError404();
         }
