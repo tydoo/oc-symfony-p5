@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Response;
-use App\Route;
+use Core\Route;
+use Core\Response\Response;
 
 class ErrorController {
 

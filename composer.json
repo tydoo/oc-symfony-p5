@@ -6,7 +6,8 @@
     "name": "tydoo/oc-symfony-p5",
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Core\\": "core/"
         }
     },
     "require-dev": {

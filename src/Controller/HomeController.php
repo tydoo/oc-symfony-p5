@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\RedirectResponse;
-use App\Response;
-use App\Route;
+use Core\Route;
+use Core\Response\Response;
+use Core\Response\RedirectResponse;
 
 class HomeController {
 
