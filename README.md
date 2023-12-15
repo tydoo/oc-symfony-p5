@@ -2,10 +2,10 @@
 
 # PROJET 5
 ## Formation Développeur d'application - PHP/Symfony - OpenClassrooms
-</div>
-## Installation d'un environnement de développement
 
-### Prérequis
+### Installation d'un environnement de développement
+
+#### Prérequis
  1. [PHP 8.2](https://www.php.net/downloads) ou supérieur et ses extensions :
 	 1. [Mbstring](https://www.php.net/book.mbstring)
 	 2. [PDO + PDO Mysql](https://www.php.net/book.pdo)
