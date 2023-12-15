@@ -1,0 +1,12 @@
+version: '3'
+services:
+    database:
+        image: 'mariadb:10.11'
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: p4
+        ports:
+            - "3306:3306"
+    mailer:
+        image: schickling/mailcatcher
+        ports: [ 1025, 1080 ]
