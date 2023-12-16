@@ -4,7 +4,7 @@ namespace Core;
 
 use Throwable;
 use Dotenv\Dotenv;
-use App\Controller\ErrorController;
+use Core\Controller\ErrorController;
 
 class Kernel {
 
@@ -19,7 +19,6 @@ class Kernel {
         } catch (Throwable $th) {
             if ($_ENV['APP_ENV'] === 'dev') {
                 error_reporting(E_ALL);
-                ini_set('display_errors', '1');
                 throw $th;
             } else {
                 $error = new ErrorController();
