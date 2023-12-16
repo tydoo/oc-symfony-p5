@@ -15,10 +15,13 @@ class Router {
     }
 
     private function registerRoutes(): void {
-        $controllers = glob(__DIR__ . '/Controller/*.php');
+        $controllers = glob(
+            dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . '*.php'
+        );
         foreach ($controllers as $controller) {
             $controller = str_replace('.php', '', $controller);
-            $controller = substr($controller, 12 + strpos($controller, '/Controller/'));
+            $controller = substr($controller, strpos($controller, 'Controller'));
+            $controller = ltrim($controller, 'Controller\/');
             $reflectionClass = new ReflectionClass('App\\Controller\\' . $controller);
             $methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
             if (count($methods) > 0) {
