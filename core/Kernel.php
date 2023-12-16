@@ -13,6 +13,7 @@ class Kernel {
     public function run() {
         $this->loadEnv();
         try {
+            $this->createSession();
             $this->router = new Router();
             $this->router->run($_SERVER['REQUEST_URI']);
         } catch (Throwable $th) {
@@ -30,5 +31,11 @@ class Kernel {
     private function loadEnv(): void {
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
+    }
+
+    private function createSession(): void {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 }
