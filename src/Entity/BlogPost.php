@@ -41,20 +41,20 @@ class BlogPost {
         return $this;
     }
 
-    public function getCreated_at(): DateTimeImmutable {
+    public function getCreatedAt(): DateTimeImmutable {
         return $this->created_at;
     }
 
-    public function setCreated_at(DateTimeImmutable $created_at): self {
+    public function setCreatedAt(DateTimeImmutable $created_at): self {
         $this->created_at = $created_at;
         return $this;
     }
 
-    public function getUpdated_at(): ?DateTime {
+    public function getUpdatedAt(): ?DateTime {
         return $this->updated_at;
     }
 
-    public function setUpdated_at(?DateTime $updated_at): self {
+    public function setUpdatedAt(?DateTime $updated_at): self {
         $this->updated_at = $updated_at;
         return $this;
     }

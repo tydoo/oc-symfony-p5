@@ -30,11 +30,11 @@ class Comment {
         return $this;
     }
 
-    public function getCreated_at(): DateTimeImmutable {
+    public function getCreatedAt(): DateTimeImmutable {
         return $this->created_at;
     }
 
-    public function setCreated_at(DateTimeImmutable $created_at): self {
+    public function setCreatedAt(DateTimeImmutable $created_at): self {
         $this->created_at = $created_at;
         return $this;
     }
