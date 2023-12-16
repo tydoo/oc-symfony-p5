@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Core\AbstractEntity;
 
-class User {
+class User extends AbstractEntity {
     private ?int $id = null;
     private string $firstname;
     private string $lastname;

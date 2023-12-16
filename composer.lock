@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f042c0d750b101f536564b4830ec733c",
+    "content-hash": "84d4a5b5b44a87328d3d395bab6c6837",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -67,6 +67,53 @@
                 }
             ],
             "time": "2023-11-12T22:16:48+00:00"
+        },
+        {
+            "name": "leeqvip/database",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leeqvip/database.git",
+                "reference": "89163d740a99aa76a9683e1cddce02da66f5ff0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leeqvip/database/zipball/89163d740a99aa76a9683e1cddce02da66f5ff0b",
+                "reference": "89163d740a99aa76a9683e1cddce02da66f5ff0b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Leeqvip\\Database\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "leeqvip",
+                    "email": "leeqvip@gmail.com"
+                }
+            ],
+            "description": "PDO database library",
+            "keywords": [
+                "database",
+                "framework",
+                "orm",
+                "pdo"
+            ],
+            "support": {
+                "issues": "https://github.com/leeqvip/database/issues",
+                "source": "https://github.com/leeqvip/database/tree/v1.0.0"
+            },
+            "time": "2022-10-23T10:12:07+00:00"
         },
         {
             "name": "phpoption/phpoption",

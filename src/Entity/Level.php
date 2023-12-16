@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
-class Level {
+use Core\AbstractEntity;
+
+class Level extends AbstractEntity {
     private ?int $id = null;
     private string $name;
 

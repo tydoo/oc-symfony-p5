@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Core\AbstractEntity;
 
-class Comment {
+class Comment extends AbstractEntity {
 
     private ?int $id = null;
     private string $comment;

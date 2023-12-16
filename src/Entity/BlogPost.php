@@ -4,8 +4,9 @@ namespace App\Entity;
 
 use DateTime;
 use DateTimeImmutable;
+use Core\AbstractEntity;
 
-class BlogPost {
+class BlogPost extends AbstractEntity {
     private ?int $id = null;
     private string $title;
     private string $post;

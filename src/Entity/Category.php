@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
-class Category {
+use Core\AbstractEntity;
+
+class Category extends AbstractEntity {
 
     private ?int $id = null;
     private string $name;
