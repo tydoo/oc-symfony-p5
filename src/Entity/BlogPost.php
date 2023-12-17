@@ -5,15 +5,22 @@ namespace App\Entity;
 use DateTime;
 use DateTimeImmutable;
 use Core\AbstractEntity;
+use Core\Attribute\Entity;
+use App\Repository\BlogPostRepository;
 
+#[Entity(table: 'blog_post', repository: BlogPostRepository::class)]
 class BlogPost extends AbstractEntity {
     private ?int $id = null;
     private string $title;
     private string $post;
-    private DateTimeImmutable $created_at;
-    private ?DateTime $updated_at = null;
+    private DateTimeImmutable $createdAt;
+    private ?DateTime $updatedAt = null;
     private User $user;
     private Category $category;
+
+    public function __construct() {
+        $this->setCreatedAt(new DateTimeImmutable());
+    }
 
     public function getId(): ?int {
         return $this->id;
@@ -43,20 +50,20 @@ class BlogPost extends AbstractEntity {
     }
 
     public function getCreatedAt(): DateTimeImmutable {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $created_at): self {
-        $this->created_at = $created_at;
+    public function setCreatedAt(DateTimeImmutable $createdAt): self {
+        $this->createdAt = $createdAt;
         return $this;
     }
 
     public function getUpdatedAt(): ?DateTime {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTime $updated_at): self {
-        $this->updated_at = $updated_at;
+    public function setUpdatedAt(?DateTime $updatedAt): self {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 

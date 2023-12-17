@@ -4,6 +4,7 @@ namespace Core;
 
 use ReflectionClass;
 use ReflectionMethod;
+use Core\Attribute\Route;
 use Core\Controller\ErrorController;
 
 class Router {

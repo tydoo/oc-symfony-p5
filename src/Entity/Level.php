@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\LevelRepository;
 use Core\AbstractEntity;
+use Core\Attribute\Entity;
 
+#[Entity(table: 'level', repository: LevelRepository::class)]
 class Level extends AbstractEntity {
     private ?int $id = null;
     private string $name;

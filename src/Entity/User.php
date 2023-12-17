@@ -4,15 +4,22 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 use Core\AbstractEntity;
+use Core\Attribute\Entity;
+use App\Repository\UserRepository;
 
+#[Entity(table: 'user', repository: UserRepository::class)]
 class User extends AbstractEntity {
     private ?int $id = null;
     private string $firstname;
     private string $lastname;
     private string $email;
     private string $password;
-    private DateTimeImmutable $created_at;
+    private DateTimeImmutable $createdAt;
     private Level $level;
+
+    public function __construct() {
+        $this->setCreatedAt(new DateTimeImmutable());
+    }
 
     public function getId(): ?int {
         return $this->id;
@@ -60,11 +67,11 @@ class User extends AbstractEntity {
     }
 
     public function getCreatedAt(): DateTimeImmutable {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $created_at): self {
-        $this->created_at = $created_at;
+    public function setCreatedAt(DateTimeImmutable $createdAt): self {
+        $this->createdAt = $createdAt;
         return $this;
     }
 

@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\CategoryRepository;
 use Core\AbstractEntity;
+use Core\Attribute\Entity;
 
+#[Entity(table: 'category', repository: CategoryRepository::class)]
 class Category extends AbstractEntity {
 
     private ?int $id = null;

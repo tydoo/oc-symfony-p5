@@ -2,16 +2,23 @@
 
 namespace App\Entity;
 
+use App\Repository\CommentRepository;
 use DateTimeImmutable;
 use Core\AbstractEntity;
+use Core\Attribute\Entity;
 
+#[Entity(table: 'comment', repository: CommentRepository::class)]
 class Comment extends AbstractEntity {
 
     private ?int $id = null;
     private string $comment;
-    private DateTimeImmutable $created_at;
+    private DateTimeImmutable $createdAt;
     private bool $validated = false;
     private User $user;
+
+    public function __construct() {
+        $this->setCreatedAt(new DateTimeImmutable());
+    }
 
     public function getId(): ?int {
         return $this->id;
@@ -32,11 +39,11 @@ class Comment extends AbstractEntity {
     }
 
     public function getCreatedAt(): DateTimeImmutable {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $created_at): self {
-        $this->created_at = $created_at;
+    public function setCreatedAt(DateTimeImmutable $createdAt): self {
+        $this->createdAt = $createdAt;
         return $this;
     }
 

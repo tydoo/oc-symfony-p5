@@ -7,6 +7,8 @@ use Attribute;
 #[Attribute]
 class Entity {
 
+    private string $class;
+
     public function __construct(
         private string $table,
         private string $repository
@@ -19,5 +21,13 @@ class Entity {
 
     public function getRepository(): string {
         return $this->repository;
+    }
+
+    public function getClass(): string {
+        return $this->class;
+    }
+
+    public function setClass(string $class): void {
+        $this->class = $class;
     }
 }
