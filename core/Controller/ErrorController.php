@@ -2,7 +2,7 @@
 
 namespace Core\Controller;
 
-use Core\Route;
+use Core\Attribute\Route;
 use Core\Response\Response;
 
 class ErrorController {

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Core\Route;
+use Core\Attribute\Route;
 use Core\Response\Response;
 use Core\Response\RedirectResponse;
 
