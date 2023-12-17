@@ -15,7 +15,7 @@ class AbstractRepository {
 
     public function __construct() {
         $this->db = new Database();
-        $entity = array_filter($this->db->entities, function ($entity) {
+        $entity = array_filter($this->db->entities, function (Entity $entity) {
             return $entity->getRepository() === get_class($this);
         });
         $this->entity = $entity[array_key_first($entity)];
@@ -86,7 +86,7 @@ class AbstractRepository {
                 $type = $params[0]->getType();
                 if (class_exists($type->getName())) {
                     $class = $type->getName();
-                    $entity = array_filter($this->db->entities, function ($entity) use ($class) {
+                    $entity = array_filter($this->db->entities, function (Entity $entity) use ($class) {
                         return $entity->getClass() === $class;
                     });
                     if (count($entity) > 0) {
@@ -106,7 +106,7 @@ class AbstractRepository {
 
     public function delete(object $object): void {
         $class = get_class($object);
-        $entity = array_filter($this->db->entities, function ($entity) use ($class) {
+        $entity = array_filter($this->db->entities, function (Entity $entity) use ($class) {
             return $entity->getClass() === $class;
         });
         $table = $entity[array_key_first($entity)]->getTable();
@@ -124,7 +124,7 @@ class AbstractRepository {
 
     private function insert(object $object): void {
         $class = get_class($object);
-        $entity = array_filter($this->db->entities, function ($entity) use ($class) {
+        $entity = array_filter($this->db->entities, function (Entity $entity) use ($class) {
             return $entity->getClass() === $class;
         });
         $table = $entity[array_key_first($entity)]->getTable();
@@ -144,7 +144,7 @@ class AbstractRepository {
                 $value = $property->getValue($object);
                 if (is_object($value)) {
                     $classValue = get_class($value);
-                    $entity = array_filter($this->db->entities, function ($entity) use ($classValue) {
+                    $entity = array_filter($this->db->entities, function (Entity $entity) use ($classValue) {
                         return $entity->getClass() === $classValue;
                     });
                     if (count($entity) > 0) {
@@ -177,7 +177,7 @@ class AbstractRepository {
 
     private function update(object $object): void {
         $class = get_class($object);
-        $entity = array_filter($this->db->entities, function ($entity) use ($class) {
+        $entity = array_filter($this->db->entities, function (Entity $entity) use ($class) {
             return $entity->getClass() === $class;
         });
         $table = $entity[array_key_first($entity)]->getTable();
@@ -196,7 +196,7 @@ class AbstractRepository {
                 $value = $property->getValue($object);
                 if (is_object($value)) {
                     $classValue = get_class($value);
-                    $entity = array_filter($this->db->entities, function ($entity) use ($classValue) {
+                    $entity = array_filter($this->db->entities, function (Entity $entity) use ($classValue) {
                         return $entity->getClass() === $classValue;
                     });
                     if (count($entity) > 0) {
