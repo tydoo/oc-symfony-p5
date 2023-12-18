@@ -14,12 +14,13 @@ class BlogPost extends AbstractEntity {
     private string $title;
     private string $post;
     private DateTimeImmutable $createdAt;
-    private ?DateTime $updatedAt = null;
+    private DateTime $updatedAt;
     private User $user;
     private Category $category;
 
     public function __construct() {
         $this->setCreatedAt(new DateTimeImmutable());
+        $this->setUpdatedAt(new DateTime());
     }
 
     public function getId(): ?int {
