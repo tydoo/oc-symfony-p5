@@ -12,25 +12,32 @@ class Router {
     private array $routes = [];
 
     public function __construct() {
-        $this->registerRoutes();
+        // Chargement des routes du framework
+        $this->registerAppRoutes(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'core', 'Core\\Controller\\');
+
+        // Chargement des routes de l'application
+        $this->registerAppRoutes(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src', 'App\\Controller\\');
     }
 
-    private function registerRoutes(): void {
+    /**
+     * @param string $dirControllers Chemin vers le dossier contenant les controllers sans le / de fin
+     */
+    private function registerAppRoutes($dirControllers, $namespace): void {
         $controllers = glob(
-            dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . '*.php'
+            $dirControllers . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . '*.php'
         );
         foreach ($controllers as $controller) {
             $controller = str_replace('.php', '', $controller);
             $controller = substr($controller, strpos($controller, 'Controller'));
             $controller = ltrim($controller, 'Controller\/');
-            $reflectionClass = new ReflectionClass('App\\Controller\\' . $controller);
+            $reflectionClass = new ReflectionClass($namespace . $controller);
             $methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
             if (count($methods) > 0) {
                 foreach ($methods as $method) {
                     $attributes = $method->getAttributes(Route::class);
                     foreach ($attributes as $attribute) {
                         $route = $attribute->newInstance();
-                        $route->setController($controller);
+                        $route->setController($namespace . $controller);
                         $route->setAction($method->getName());
                         $this->routes[] = $route;
                     }
@@ -55,7 +62,7 @@ class Router {
 
         if (count($route) === 1) {
             $route = array_shift($route);
-            $controller = 'App\\Controller\\' . $route->getController();
+            $controller = $route->getController();
             $controller = new $controller();
             $id = null;
             if (strpos($route->getPath(), '{id}') !== false) {
