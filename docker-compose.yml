@@ -4,7 +4,7 @@ services:
         image: 'mariadb:10.11'
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: p4
+            MYSQL_DATABASE: mon-blog
         ports:
             - "3306:3306"
     mailer:

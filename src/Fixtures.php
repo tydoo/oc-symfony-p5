@@ -22,6 +22,8 @@ use App\Repository\CategoryRepository;
  */
 class Fixtures {
     public function __construct() {
+        echo "Création des données de test ...\n";
+
         $UserRepository = new UserRepository();
         $LevelRepository = new LevelRepository();
         $CategoryRepository = new CategoryRepository();
@@ -142,6 +144,8 @@ class Fixtures {
                 ->setUser($UserRepository->findOneBy(['email' => 'johndoe@gmail.com']))
                 ->setValidated(true)
         );
+
+        echo "Données de test créées !\n";
     }
 }
 
