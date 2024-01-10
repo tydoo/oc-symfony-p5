@@ -4,6 +4,7 @@ namespace Core\Response;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Twig\Extension\DebugExtension;
 
 class Response {
 
@@ -15,7 +16,9 @@ class Response {
         $loader = new FilesystemLoader($templatesDir);
         $this->twig = new Environment($loader, [
             'cache' => false,
+            'debug' => true,
         ]);
+        $this->twig->addExtension(new DebugExtension());
         $this->loadTwigExtensions();
         echo $this->twig->render($path, $params);
     }
@@ -31,9 +34,14 @@ class Response {
 
         foreach (array_merge($extentions_core, $extentions_src) as $extention) {
             $extention = str_replace('.php', '', $extention);
+            if (strpos($extention, 'core')) {
+                $namespace = 'Core';
+            } else {
+                $namespace = 'App';
+            }
             $extention = substr($extention, strpos($extention, 'Twig'));
             $extention = ltrim($extention, 'Twig\/');
-            $extention = 'App\\Twig\\' . $extention;
+            $extention = "$namespace\\Twig\\" . $extention;
             $this->twig->addExtension(new $extention());
         }
     }
