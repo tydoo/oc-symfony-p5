@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr" data-fr-scheme="system">
+	<head>
+		<meta charset="utf-8">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="theme-color" content="#000091">
+		<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+		<link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml">
+		<link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
+		<link rel="manifest" href="/favicon/manifest.webmanifest" crossorigin="use-credentials">
+		<title>
+			Blog de Thomas |
+			{% block title '' %}
+		</title>
+		<link rel="stylesheet" href="/build/app.css">
+		{% block stylesheets '' %}
+		<script type="module" src="/build/runtime.js"></script>
+		<script type="module" src="/build/app.js"></script>
+		{% block javascripts '' %}
+	</head>
+	<body>
+		<div class="flex flex-col h-full">
+			{% include "partials/_header.html.twig" %}
+			<main class="flex-grow fr-container mx-auto relative">
+				{% block body '' %}
+			</main>
+			{% include "partials/_footer.html.twig" %}
+		</div>
+	</body>
+</html>

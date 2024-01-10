@@ -12,11 +12,14 @@
 	 3. [cURL](https://www.php.net/book.curl)
  2. [Composer](https://getcomposer.org/doc/00-intro.md)
  3. Git
- 4. [Docker + Docker Compose](https://www.docker.com/)
+ 4. [Node JS - Version >=20](https://nodejs.org)
+ 5. [Docker + Docker Compose](https://www.docker.com/)
 
 ### Démarrage de l'environnement de développement
 ```bash
 composer install
 docker-compose up -d
+npm install --force
+npm run build
 php -S localhost:8000 -t ./public
 ```

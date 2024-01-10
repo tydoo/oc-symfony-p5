@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    @apply h-screen min-h-screen;
+}
+
+@keyframes clignotement {
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0;
+    }
+}
+
+.clignotement {
+    animation: clignotement 1s infinite;
+}
+
+a {
+    background-image: none !important;
+}
+
+div.service_mode {
+    position: fixed;
+    background-color: rgba(255, 0, 0, 0.7);
+    z-index: 9999;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    user-select: none;
+
+    &.top {
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+
+    &.right {
+        top: 18px;
+        bottom: 50px;
+        right: 0;
+        writing-mode: vertical-rl;
+    }
+
+    &.bottom {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 50px;
+    }
+
+    &.left {
+        top: 18px;
+        bottom: 50px;
+        left: 0;
+        writing-mode: vertical-rl;
+    }
+
+    &.center {
+        top: 50%;
+        text-align: center;
+        transform: translateY(-50%);
+        color: rgba(255, 0, 0, 0.3);
+        font-size: 9em;
+        width: 100%;
+        background-color: transparent;
+        z-index: -50;
+    }
+}
+
+
+span.miniblock {
+    @apply border rounded-sm overflow-hidden text-xs pr-1;
+    background-color: var(--background-alt-grey);
+    border-color: var(--background-alt-grey-hover);
+
+    span {
+        @apply px-1 font-medium;
+        background-color: var(--background-alt-grey-hover);
+    }
+
+    &.active {
+        background-color: var(--background-alt-grey-active);
+    }
+}

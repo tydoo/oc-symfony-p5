@@ -1,0 +1,38 @@
+{
+  "devDependencies": {
+    "@babel/core": "^7.23",
+    "@babel/preset-env": "^7.22",
+    "@hotwired/stimulus": "^3.2",
+    "@hotwired/turbo": "^7.3",
+    "@symfony/stimulus-bridge": "^3.2",
+    "@symfony/webpack-encore": "^4.0",
+    "autoprefixer": "^10.4",
+    "core-js": "^3.33",
+    "postcss-loader": "^7.3",
+    "regenerator-runtime": "^0.14",
+    "sass": "^1.69",
+    "sass-loader": "^13.3",
+    "tailwindcss": "^3.4",
+    "webpack": "^5.89",
+    "webpack-cli": "^5.1",
+    "webpack-notifier": "^1.15"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
+  "dependencies": {
+    "@gouvfr/dsfr": "^1.11",
+    "node-waves": "^0.7.6"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  }
+}

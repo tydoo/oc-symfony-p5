@@ -1,17 +1,36 @@
-{% extends "layout.html.twig" %}
+{% extends "base.html.twig" %}
 {% block title 'Zone interdite !' %}
 {% block body %}
-	<section class="error-wrap space-bottom-60 space-top-60 bg-color-light-1 transition-default">
-		<div class="container">
-			<div class="error-box img-height-100">
-				<img src="/assets/media/elements/403.png" alt="403" style="height:499px;">
-				<h2 class="title">Zone interdite !</h2>
-				<p class="description">Stop ! Vous vous approchez d'une zone interdite. Nos gardiens numériques ont bloqué l'accès. Assurez-vous d'avoir les clés appropriées, sinon rebroussez chemin. Pour toute assistance, contactez-nous.</p>
-				<a href="/home" class="axil-btn axil-btn-fill axil-btn-dark axil-btn-large">Retourner à l'accueil<div class="icon-holder">
-						<i class="regular-arrow-back"></i>
-					</div>
-				</a>
+	<main role="main" id="content">
+		<div class="fr-container">
+			<div class="fr-my-7w fr-mt-md-12w fr-mb-md-10w fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-grid-row--center">
+				<div class="fr-py-0 fr-col-12 fr-col-md-6">
+					<h1>Erreur inattendue</h1>
+					<p class="fr-text--sm fr-mb-3w">Erreur 403</p>
+					<p class="fr-text--lead fr-mb-3w">Désolé, vous n'avez pas l'autorisation d'accéder à cette page.</p>
+					<p class="fr-text--sm fr-mb-5w">
+						Essayez de rafraîchir la page ou bien ressayez plus tard.
+					</p>
+					<ul class="fr-btns-group fr-btns-group--inline-md">
+						<li>
+							<a class="fr-btn fr-btn--secondary" href="/contact">
+								Contactez-nous
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="fr-col-12 fr-col-md-3 fr-col-offset-md-1 fr-px-6w fr-px-md-0 fr-py-0">
+					<svg xmlns="http://www.w3.org/2000/svg" class="fr-responsive-img fr-artwork" aria-hidden="true" width="160" height="200" viewbox="0 0 160 200">
+						<use class="fr-artwork-motif" href="/artwork/background/_ovoid.svg#artwork-motif"></use>
+						<use class="fr-artwork-background" href="/artwork/background/_ovoid.svg#artwork-background"></use>
+						<g transform="translate(40, 60)">
+							<use class="fr-artwork-decorative" href="/artwork/pictograms/system/technical-error.svg#artwork-decorative"></use>
+							<use class="fr-artwork-minor" href="/artwork/pictograms/system/technical-error.svg#artwork-minor"></use>
+							<use class="fr-artwork-major" href="/artwork/pictograms/system/technical-error.svg#artwork-major"></use>
+						</g>
+					</svg>
+				</div>
 			</div>
 		</div>
-	</section>
+	</main>
 {% endblock %}
