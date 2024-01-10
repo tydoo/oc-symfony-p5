@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+{% block title 'Zone interdite !' %}
+{% block body %}
+	<main role="main" id="content">
+		<div class="fr-container">
+			<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+				<button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-3891">Voir le fil d’Ariane</button>
+				<div class="fr-collapse" id="breadcrumb-3891">
+					<ol class="fr-breadcrumb__list">
+						<li>
+							<a class="fr-breadcrumb__link" id="breadcrumb-3883" href="/home">Accueil</a>
+						</li>
+						<li>
+							<a class="fr-breadcrumb__link" aria-current="page">{{ category.name }}</a>
+						</li>
+					</ol>
+				</div>
+			</nav>
+			<div class="flex justify-center">
+				<h1>{{ category.name }}</h1>
+			</div>
+			<div class="flex flex-col">
+				{% for blogPost in blogPosts %}
+					<article>
+						{{ blogPost.title }}
+					</article>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+{% endblock %}

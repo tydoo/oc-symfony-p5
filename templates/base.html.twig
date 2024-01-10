@@ -5,6 +5,7 @@
 		<meta name="format-detection" content="telephone=no">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="theme-color" content="#000091">
+		<meta name="turbo-cache-control" content="no-cache">
 		<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
 		<link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml">
 		<link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
@@ -13,10 +14,10 @@
 			Blog de Thomas |
 			{% block title '' %}
 		</title>
-		<link rel="stylesheet" href="/build/app.css">
+		<link rel="stylesheet" href="/build/app.css" data-turbo-track="reload">
 		{% block stylesheets '' %}
-		<script type="module" src="/build/runtime.js"></script>
-		<script type="module" src="/build/app.js"></script>
+		<script src="/build/runtime.js" defer data-turbo-track="reload"></script>
+		<script src="/build/app.js" defer data-turbo-track="reload"></script>
 		{% block javascripts '' %}
 	</head>
 	<body>
