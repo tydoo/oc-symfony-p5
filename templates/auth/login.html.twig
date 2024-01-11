@@ -1,0 +1,102 @@
+{% extends "base.html.twig" %}
+{% block title 'Se connecter' %}
+{% block body %}
+	<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+		<button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-3891">Voir le fil d’Ariane</button>
+		<div class="fr-collapse" id="breadcrumb-3891">
+			<ol class="fr-breadcrumb__list">
+				<li>
+					<a class="fr-breadcrumb__link" id="breadcrumb-3883" href="/home">Accueil</a>
+				</li>
+				<li>
+					<a class="fr-breadcrumb__link" aria-current="page">Se connecter</a>
+				</li>
+			</ol>
+		</div>
+	</nav>
+	<main role="main" id="content">
+		<div class="fr-container fr-container--fluid fr-mb-md-14v">
+			<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+				<div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+					<div class="fr-container fr-background-alt--grey fr-px-md-0 fr-pt-10v fr-pt-md-14v fr-pb-6v fr-pb-md-10v">
+						<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+							<div class="fr-col-12 fr-col-md-9 fr-col-lg-8">
+								<h1 class="fr-h4">Connexion au blog</h1>
+								<div>
+									<form id="login-8796" method="post" action="/login" data-turbo="false">
+										<fieldset class="fr-fieldset" id="login-8796-fieldset" aria-labelledby="login-8796-fieldset-legend login-8796-fieldset-messages">
+											<legend class="fr-fieldset__legend" id="login-8796-fieldset-legend">
+												<h2 class="fr-h5">Se connecter avec son compte</h2>
+											</legend>
+											<div class="fr-fieldset__element">
+												<fieldset class="fr-mb-n4v fr-fieldset" id="credentials" aria-labelledby="credentials-legend credentials-messages">
+													<legend class="fr-sr-only" id="credentials-legend">
+														identifiants
+													</legend>
+													{% if error %}
+														<div class="fr-fieldset__element">
+															<div id="alert-8983" class="fr-mb-2v fr-alert fr-alert--error fr-alert--sm">
+																<p>Identifiant/mot de passe incorrect</p>
+															</div>
+														</div>
+													{% endif %}
+													<div class="fr-fieldset__element {{ error ? 'fr-fieldset--error' : '' }}">
+														<div class="fr-input-group" id="input-group-8798">
+															<label class="fr-label" for="username-8793">
+																Identifiant
+																<span class="fr-hint-text">Format attendu : nom@domaine.fr</span>
+															</label>
+															<input class="fr-input" autocomplete="username" aria-required="true" autocapitalize="off" autocorrect="off" aria-describedby="username-8793-messages" name="username" id="username-8793" type="text" required>
+															<div class="fr-messages-group" id="username-8793-messages" aria-live="polite"></div>
+														</div>
+													</div>
+													<div class="fr-fieldset__element {{ error ? 'fr-fieldset--error' : '' }}">
+														<div class="fr-password" id="password-8794">
+															<label class="fr-label" for="password-8794-input">
+																Mot de passe
+															</label>
+															<div class="fr-input-wrap">
+																<input class="fr-password__input fr-input" autocapitalize="off" autocorrect="off" aria-describedby="password-8794-input-messages" aria-required="true" name="password" autocomplete="current-password" id="password-8794-input" type="password" required>
+															</div>
+															<div class="fr-messages-group" id="password-8794-input-messages" aria-live="polite"></div>
+															<div class="fr-password__checkbox fr-checkbox-group fr-checkbox-group--sm">
+																<input aria-label="Afficher le mot de passe" id="password-8794-show" type="checkbox">
+																<label class="fr--password__checkbox fr-label" for="password-8794-show">
+																	Afficher
+																</label>
+															</div>
+														</div>
+													</div>
+													<div class="fr-messages-group" id="credentials-messages" aria-live="polite"></div>
+												</fieldset>
+											</div>
+											<div class="fr-fieldset__element">
+												<div class="fr-checkbox-group fr-checkbox-group--sm">
+													<input name="remember" id="remember-8795" type="checkbox" aria-describedby="remember-8795-messages">
+													<label class="fr-label" for="remember-8795">
+														Se souvenir de moi
+													</label>
+													<div class="fr-messages-group" id="remember-8795-messages" aria-live="polite"></div>
+												</div>
+											</div>
+											<div class="fr-fieldset__element">
+												<ul class="fr-btns-group">
+													<li>
+														<button class="fr-mt-2v fr-btn" id="button-8799">
+															Se connecter
+														</button>
+													</li>
+												</ul>
+											</div>
+											<div class="fr-messages-group" id="login-8796-fieldset-messages" aria-live="polite"></div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

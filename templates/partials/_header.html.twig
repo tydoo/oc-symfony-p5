@@ -30,16 +30,26 @@
 							Paramètres d'affichage
 						</button>
 						<ul class="fr-btns-group">
-							<li>
-								<a class="fr-btn--team fr-btn" id="button-menu-2" href="/contact">
-									Contact
-								</a>
-							</li>
-							<li>
-								<a class="fr-btn--account fr-btn" id="button-menu-3" href="/login">
-									Espace utilisateur
-								</a>
-							</li>
+							{% if app.user is null %}
+								<li>
+									<a class="fr-btn--account fr-btn" id="button-menu-3" href="/login">
+										Espace utilisateur
+									</a>
+								</li>
+							{% else %}
+								{% if app.user.level.id == 1 %}
+									<li>
+										<a class="fr-btn" id="button-menu-3" href="/administration">
+											Administration
+										</a>
+									</li>
+								{% endif %}
+								<li>
+									<a class="fr-btn" id="button-menu-3" href="/logout">
+										Déconnexion
+									</a>
+								</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
@@ -71,6 +81,9 @@
 					</li>
 					<li class="fr-nav__item">
 						<a class="fr-nav__link" href="#" id="nav-3490">Un article au hasard</a>
+					</li>
+					<li class="fr-nav__item">
+						<a class="fr-nav__link" href="/contact" id="nav-3491">Contact</a>
 					</li>
 				</ul>
 			</nav>

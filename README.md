@@ -23,3 +23,6 @@ npm install --force
 npm run build
 php -S localhost:8000 -t ./public
 ```
+
+Le compte administrateur : thomas@tydoo.fr:123456
+Le compte utilisateur : johndoe@gmail.com:123456

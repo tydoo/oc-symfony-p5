@@ -35,20 +35,21 @@ class Fixtures {
 
         /**
          * User
+         * Password : 123456
          */
         $UserRepository->save(
             (new User())
                 ->setEmail('thomas@tydoo.fr')
-                ->setPassword('password')
+                ->setPassword('$2y$17$Gpo2Jg7yC1OoeDNtg.HClOXoYkHr6CSUukX061qEMkeNkpOGfWXkq')
                 ->setFirstname('Thomas')
-                ->setLastname('B')
+                ->setLastname('BOYER')
                 ->setLevel($LevelRepository->findOneBy(['name' => 'Administrateur']))
         );
 
         $UserRepository->save(
             (new User())
                 ->setEmail('johndoe@gmail.com')
-                ->setPassword('password')
+                ->setPassword('$2y$17$Gpo2Jg7yC1OoeDNtg.HClOXoYkHr6CSUukX061qEMkeNkpOGfWXkq')
                 ->setFirstname('John')
                 ->setLastname('DOE')
                 ->setLevel($LevelRepository->findOneBy(['name' => 'Utilisateur']))

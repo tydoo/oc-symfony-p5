@@ -9,11 +9,12 @@ use Core\Controller\ErrorController;
 class Kernel {
 
     private Router $router;
+    private Security $security;
 
     public function run() {
         $this->loadEnv();
         try {
-            $this->createSession();
+            $this->security = new Security();
             $this->router = new Router();
             $this->router->run($_SERVER['REQUEST_URI']);
         } catch (Throwable $th) {
@@ -22,7 +23,17 @@ class Kernel {
                 throw $th;
             } else {
                 $error = new ErrorController();
-                $error->internalServerError();
+                switch ($th->getCode()) {
+                    case '404':
+                        $error->notFound();
+                        break;
+                    case '403':
+                        $error->forbidden();
+                        break;
+                    default:
+                        $error->internalServerError();
+                        break;
+                }
             }
         }
     }
@@ -30,11 +41,5 @@ class Kernel {
     private function loadEnv(): void {
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
-    }
-
-    private function createSession(): void {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
     }
 }
