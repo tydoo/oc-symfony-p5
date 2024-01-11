@@ -24,5 +24,7 @@ npm run build
 php -S localhost:8000 -t ./public
 ```
 
-Le compte administrateur : thomas@tydoo.fr:123456
-Le compte utilisateur : johndoe@gmail.com:123456
+|Utilisateur|Mot de passe|
+|:---------------:|:---------------:|
+|thomas@tydoo.fr|123456|
+|johndoe@gmail.com|123456|
