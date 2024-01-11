@@ -34,4 +34,19 @@ class Security {
             session_start();
         }
     }
+
+    public function generateToken(string $key): string {
+        $token = bin2hex(random_bytes(32));
+        $this->addSession($key, $token);
+        return $token;
+    }
+
+    public function isCsrfTokenValid(string $key, string $token): bool {
+        $sessionToken = $this->getSession($key);
+        if ($sessionToken === null) {
+            return false;
+        }
+        $this->removeSession($key);
+        return hash_equals($sessionToken, htmlspecialchars(strip_tags(trim(addslashes($token)))));
+    }
 }

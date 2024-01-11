@@ -25,29 +25,39 @@ class AuthController extends AbstractController {
 
         $error = false;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $password = $_POST['password'];
-            $username = filter_var(htmlspecialchars(strip_tags(trim(addslashes($_POST['username'])))), FILTER_SANITIZE_EMAIL);
-
-            if (!$username) {
+            if (!$this->security->isCsrfTokenValid('login', $_POST['_csrf_token'])) {
                 $error = true;
             } else {
-                $userReposiotry = new UserRepository();
-                $user = $userReposiotry->findOneBy(['email' => $username]);
-                if (!$user) {
+                $password = $_POST['password'];
+                $username = filter_var(htmlspecialchars(strip_tags(trim(addslashes($_POST['username'])))), FILTER_SANITIZE_EMAIL);
+
+                if (!$username) {
                     $error = true;
                 } else {
-                    if (!password_verify($password, $user->getPassword())) {
+                    $userReposiotry = new UserRepository();
+                    $user = $userReposiotry->findOneBy(['email' => $username]);
+                    if (!$user) {
                         $error = true;
                     } else {
-                        session_regenerate_id();
-                        $this->security->addSession('user', $user->getId());
-                        return new RedirectResponse('home');
+                        if (!password_verify($password, $user->getPassword())) {
+                            $error = true;
+                        } else {
+                            session_regenerate_id();
+                            $this->security->addSession('user', $user->getId());
+                            return new RedirectResponse('home');
+                        }
                     }
                 }
             }
         }
 
-        return new Response('auth/login.html.twig', ['error' => $error]);
+        return new Response(
+            'auth/login.html.twig',
+            [
+                'error' => $error,
+                '_csrf_token' => $this->security->generateToken('login')
+            ]
+        );
     }
 
     #[Route('/logout', name: 'logout')]
