@@ -74,6 +74,18 @@ class AbstractRepository {
         return count($data) > 0 ? $data[0] : null;
     }
 
+    public function findRandom(): ?object {
+        $sql = "SELECT * FROM {$this->entity->getTable()} ORDER BY RAND() LIMIT 1";
+        $data = $this->db->connection->query($sql);
+        if (count($data) > 0) {
+            $class = $this->entity->getClass();
+            $object = new $class();
+            return $this->hydrate($object, $data[0]);
+        } else {
+            return null;
+        }
+    }
+
     private function hydrate(object $object, array $data): object {
         foreach ($data as $key => $value) {
             $key = str_replace('_', '', lcfirst(ucwords($key, '_')));

@@ -73,14 +73,27 @@
 						</div>
 					</li>
 					<li class="fr-nav__item">
-						<a class="fr-nav__link" href="#" id="nav-3490">Un article au hasard</a>
+						<a class="fr-nav__link" href="/article/{{ article_au_hasard }}" id="nav-3490">Un article au hasard</a>
 					</li>
 					<li class="fr-nav__item">
 						<a class="fr-nav__link" href="/contact" id="nav-3491">Contact</a>
 					</li>
 					{% if is_granted('Administrateur') %}
 						<li class="fr-nav__item">
-							<a class="fr-nav__link" href="/administration" id="nav-3491">Administration</a>
+							<button class="fr-nav__btn" aria-expanded="false" aria-controls="collapse-2510">Administration</button>
+							<div class="fr-collapse fr-menu" id="collapse-2510">
+								<ul class="fr-menu__list">
+									<li>
+										<a class="fr-nav__link" href="/administration/users" id="nav-2511">Gestion des utilisateurs</a>
+									</li>
+									<li>
+										<a class="fr-nav__link" href="/administration/articles" id="nav-2512">Gestion des articles</a>
+									</li>
+									<li>
+										<a class="fr-nav__link" href="/administration/categories" id="nav-2513">Gestion des catégories</a>
+									</li>
+								</ul>
+							</div>
 						</li>
 					{% endif %}
 				</ul>
