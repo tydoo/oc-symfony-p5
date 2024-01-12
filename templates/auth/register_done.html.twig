@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+{% block title 'Se connecter' %}
+{% block body %}
+	<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+		<button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-3891">Voir le fil d’Ariane</button>
+		<div class="fr-collapse" id="breadcrumb-3891">
+			<ol class="fr-breadcrumb__list">
+				<li>
+					<a class="fr-breadcrumb__link" id="breadcrumb-3883" href="/home">Accueil</a>
+				</li>
+				<li>
+					<a class="fr-breadcrumb__link">Créer un nouveau compte</a>
+				</li>
+				<li>
+					<a class="fr-breadcrumb__link" aria-current="page">Créer un nouveau compte terminé</a>
+				</li>
+			</ol>
+		</div>
+	</nav>
+	<main role="main" id="content">
+		<div class="fr-container fr-mt-8v fr-mt-md-14v fr-mb-2v fr-mb-md-8v">
+			<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+				<div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+					<h1 class="fr-h2">Création de compte sur le blog personel de Thomas</h1>
+				</div>
+			</div>
+		</div>
+		<div class="fr-container fr-container--fluid fr-mb-md-14v">
+			<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+				<div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+					<div class="fr-container fr-background-alt--grey fr-px-md-0 fr-pt-10v fr-pt-md-14v fr-pb-6v fr-pb-md-10v">
+						<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
+							<div class="fr-col-12 fr-col-md-10 fr-col-lg-9">
+								<div>
+									<div id="alert-9916" class="fr-mb-6v fr-alert fr-alert--success fr-alert--sm">
+										<p>{{app.user.firstname | capitalize}}
+											{{app.user.lastname | upper}}, votre compte a bien été créé. Vous êtes maintenant connecté.</p>
+									</div>
+									<div class="flex justify-center">
+										<a href="/home" class="fr-btn fr-btn--secondary">Retourner sur l'accueil</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}
