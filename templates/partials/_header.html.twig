@@ -37,13 +37,6 @@
 									</a>
 								</li>
 							{% else %}
-								{% if app.user.level.id == 1 %}
-									<li>
-										<a class="fr-btn" id="button-menu-3" href="/administration">
-											Administration
-										</a>
-									</li>
-								{% endif %}
 								<li>
 									<a class="fr-btn" id="button-menu-3" href="/logout">
 										Déconnexion
@@ -71,7 +64,7 @@
 						<button class="fr-nav__btn" aria-expanded="false" aria-controls="collapse-2509">Catégories</button>
 						<div class="fr-collapse fr-menu" id="collapse-2509">
 							<ul class="fr-menu__list">
-								{% for category in allCategories() %}
+								{% for category in allCategories %}
 									<li>
 										<a class="fr-nav__link" href="/category/{{category.id}}" id="nav-2510">{{category.name}}</a>
 									</li>
@@ -85,6 +78,11 @@
 					<li class="fr-nav__item">
 						<a class="fr-nav__link" href="/contact" id="nav-3491">Contact</a>
 					</li>
+					{% if is_granted('Administrateur') %}
+						<li class="fr-nav__item">
+							<a class="fr-nav__link" href="/administration" id="nav-3491">Administration</a>
+						</li>
+					{% endif %}
 				</ul>
 			</nav>
 		</div>

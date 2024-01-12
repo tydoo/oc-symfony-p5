@@ -89,6 +89,11 @@ class Security {
             return false;
         }
 
-        return strtolower($this->user->getLevel()->getName()) === strtolower($levelName);
+        $levelsWithHeritage = array_merge(
+            $this->user->getLevel()->getHeritage() ? explode(',', $this->user->getLevel()->getHeritage()) : [],
+            [$this->user->getLevel()->getName()]
+        );
+
+        return in_array(strtolower($levelName), array_map('strtolower', $levelsWithHeritage));
     }
 }

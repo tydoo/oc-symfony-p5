@@ -11,6 +11,7 @@ use App\Repository\LevelRepository;
 class Level extends AbstractEntity implements LevelInterface {
     private ?int $id = null;
     private string $name;
+    private ?string $heritage = null;
 
     public function getId(): ?int {
         return $this->id;
@@ -27,6 +28,18 @@ class Level extends AbstractEntity implements LevelInterface {
 
     public function setName(string $name): self {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * String séparé par des virgules
+     */
+    public function getHeritage(): ?string {
+        return $this->heritage;
+    }
+
+    public function setHeritage(?string $heritage): self {
+        $this->heritage = $heritage;
         return $this;
     }
 }

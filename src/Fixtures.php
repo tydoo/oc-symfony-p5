@@ -30,7 +30,11 @@ class Fixtures {
         $BlogPostRepository = new BlogPostRepository();
         $CommentRepository = new CommentRepository();
 
-        $LevelRepository->save((new Level())->setName('Administrateur'));
+        $LevelRepository->save(
+            (new Level())
+                ->setName('Administrateur')
+                ->setHeritage('Utilisateur')
+        );
         $LevelRepository->save((new Level())->setName('Utilisateur'));
 
         /**

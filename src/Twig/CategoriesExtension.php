@@ -2,19 +2,19 @@
 
 namespace App\Twig;
 
-use Twig\TwigFunction;
+use Twig\Extension\GlobalsInterface;
 use Twig\Extension\AbstractExtension;
 use App\Repository\CategoryRepository;
 
-class CategoriesExtension extends AbstractExtension {
+class CategoriesExtension extends AbstractExtension implements GlobalsInterface {
 
-    public function getFunctions(): array {
+    public function getGlobals(): array {
         return [
-            new TwigFunction('allCategories', [$this, 'getCategories']),
+            'allCategories' => $this->getCategories(),
         ];
     }
 
-    public function getCategories() {
+    private function getCategories() {
         return (new CategoryRepository())->findAll();
     }
 }
