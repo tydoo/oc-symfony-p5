@@ -5,10 +5,11 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Core\AbstractEntity;
 use Core\Attribute\Entity;
+use Core\Interface\UserInterface;
 use App\Repository\UserRepository;
 
 #[Entity(table: 'user', repository: UserRepository::class)]
-class User extends AbstractEntity {
+class User extends AbstractEntity implements UserInterface {
     private ?int $id = null;
     private string $firstname;
     private string $lastname;

@@ -5,11 +5,13 @@ namespace Core;
 use ReflectionClass;
 use ReflectionMethod;
 use Core\Attribute\Route;
+use Core\Attribute\isGranted;
 use Core\Controller\ErrorController;
 
 class Router {
 
     private array $routes = [];
+    private readonly Security $security;
 
     public function __construct() {
         // Chargement des routes du framework
@@ -17,6 +19,8 @@ class Router {
 
         // Chargement des routes de l'application
         $this->registerAppRoutes(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src', 'App\\Controller\\');
+
+        $this->security = new Security();
     }
 
     /**
@@ -35,11 +39,19 @@ class Router {
             if (count($methods) > 0) {
                 foreach ($methods as $method) {
                     $attributes = $method->getAttributes(Route::class);
+                    $attributesIsGranted = $method->getAttributes(isGranted::class);
+                    $isGrantedNameLevel = null;
+                    if (count($attributesIsGranted) > 0) {
+                        $isGrantedNameLevel = $attributesIsGranted[0]->newInstance()->getNameLevel();
+                    }
                     foreach ($attributes as $attribute) {
                         $route = $attribute->newInstance();
                         $route->setController($namespace . $controller);
                         $route->setAction($method->getName());
-                        $this->routes[] = $route;
+                        $this->routes[$route->getName()] = [
+                            '_route' => $route,
+                            '_levelRequired' => $isGrantedNameLevel,
+                        ];
                     }
                 }
             }
@@ -47,21 +59,28 @@ class Router {
     }
 
     public function run(string $uri) {
-        $route = array_filter($this->routes, function (Route $route) use ($uri) {
-            $path = $route->getPath();
+        $route = array_filter($this->routes, function (array $route) use ($uri) {
+            $path = $route['_route']->getPath();
             if (strpos($path, '{id}') !== false) {
                 $path = str_replace('{id}', '(\d+)', $path);
-                if (preg_match("#^{$path}$#", $uri) && in_array($_SERVER['REQUEST_METHOD'], $route->getMethods())) {
+                if (preg_match("#^{$path}$#", $uri) && in_array($_SERVER['REQUEST_METHOD'], $route['_route']->getMethods())) {
                     return true;
                 }
-            } else if ($path === $uri && in_array($_SERVER['REQUEST_METHOD'], $route->getMethods())) {
+            } else if ($path === $uri && in_array($_SERVER['REQUEST_METHOD'], $route['_route']->getMethods())) {
                 return true;
             }
             return false;
         });
 
+
         if (count($route) === 1) {
             $route = array_shift($route);
+            if ($route['_levelRequired'] !== null) {
+                if (!$this->security->isGranted($route['_levelRequired'])) {
+                    $this->loadError403();
+                }
+            }
+            $route = $route['_route'];
             $controller = $route->getController();
             $controller = new $controller();
             $id = null;
@@ -77,12 +96,12 @@ class Router {
     }
 
     public function getUriFromRoute(string $routeName, array $params = []): string {
-        $route = array_filter($this->routes, function (Route $route) use ($routeName) {
-            return $route->getName() === $routeName;
+        $route = array_filter($this->routes, function (array $route) use ($routeName) {
+            return $route['_route']->getName() === $routeName;
         });
 
         if (count($route) === 1) {
-            $route = array_shift($route);
+            $route = array_shift($route)['_route'];
             $uri = $route->getPath();
             if (count($params) > 0) {
                 $uri .= '?' . http_build_query($params);
@@ -96,5 +115,10 @@ class Router {
     private function loadError404() {
         $error = new ErrorController();
         $error->notFound();
+    }
+
+    private function loadError403() {
+        $error = new ErrorController();
+        $error->forbidden();
     }
 }

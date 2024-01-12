@@ -2,18 +2,22 @@
 
 namespace Core;
 
-use App\Repository\UserRepository;
+use ReflectionClass;
+use Core\Attribute\Entity;
+use Core\Interface\UserInterface;
 
 class Security {
 
     public bool $isLogged = false;
     public ?int $userId = null;
+    public ?UserInterface $user = null;
 
     public function __construct() {
         $this->createSession();
         $this->isLogged = $this->getSession('user') !== null;
         if ($this->isLogged) {
             $this->userId = $this->getSession('user');
+            $this->user = $this->getUser();
         }
     }
 
@@ -48,5 +52,43 @@ class Security {
         }
         $this->removeSession($key);
         return hash_equals($sessionToken, htmlspecialchars(strip_tags(trim(addslashes($token)))));
+    }
+
+    private function getUser(): ?UserInterface {
+        if ($this->userId === null) {
+            return null;
+        }
+
+        $entities = glob(
+            dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Entity' . DIRECTORY_SEPARATOR . '*.php'
+        );
+
+        $userRepository = null;
+        foreach ($entities as $key => $value) {
+            $entity = str_replace('.php', '', $value);
+            $entity = substr($entity, strpos($entity, 'Entity'));
+            $entity = ltrim($entity, 'Entity\/');
+            $reflectionClass = new ReflectionClass('App\\Entity\\' . $entity);
+            $interfaces = $reflectionClass->getInterfaceNames();
+            if (in_array(UserInterface::class, $interfaces)) {
+                $attributes = $reflectionClass->getAttributes(Entity::class);
+                $userRepository = $attributes[0]->getArguments()['repository'];
+                break;
+            }
+        }
+
+        if ($userRepository === null) {
+            return null;
+        } else {
+            return (new $userRepository)->find($this->userId);
+        }
+    }
+
+    public function isGranted(string $levelName): bool {
+        if ($this->user === null) {
+            return false;
+        }
+
+        return strtolower($this->user->getLevel()->getName()) === strtolower($levelName);
     }
 }

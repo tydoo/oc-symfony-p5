@@ -3,7 +3,7 @@
 namespace Core\Twig;
 
 use stdClass;
-use App\Repository\UserRepository;
+use Core\Security;
 use Twig\Extension\GlobalsInterface;
 use Twig\Extension\AbstractExtension;
 
@@ -15,23 +15,13 @@ class AppExtension extends AbstractExtension implements GlobalsInterface {
         ];
     }
 
-    private function getUser(): ?object {
-        if (isset($_SESSION['user'])) {
-            $userReposiotry = new UserRepository();
-            $user = $userReposiotry->findOneBy(['id' => $_SESSION['user']]);
-            if ($user) {
-                return $user;
-            }
-        }
-
-        return null;
-    }
-
     private function getApp(): object {
+        $security = new Security();
+
         $app = new stdClass();
         $app->session = $_SESSION;
         $app->cookie = $_COOKIE;
-        $app->user = $this->getUser();
+        $app->user = $security->user;
 
         return $app;
     }
