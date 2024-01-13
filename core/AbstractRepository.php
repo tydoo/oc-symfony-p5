@@ -86,6 +86,16 @@ class AbstractRepository {
         }
     }
 
+    public function countBy(array $criteria): int {
+        $sql = "SELECT COUNT(*) FROM {$this->entity->getTable()} WHERE ";
+        foreach ($criteria as $key => $value) {
+            $sql .= "{$key} = :{$key} AND ";
+        }
+        $sql = substr($sql, 0, -5);
+        $data = $this->db->connection->query($sql, $criteria);
+        return (int) $data[0]['COUNT(*)'];
+    }
+
     private function hydrate(object $object, array $data): object {
         foreach ($data as $key => $value) {
             $key = str_replace('_', '', lcfirst(ucwords($key, '_')));

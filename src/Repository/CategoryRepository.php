@@ -13,6 +13,7 @@ use Core\AbstractRepository;
  * @method Category|null findOneBy(array $criteria)
  * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria)
+ * @method int    countBy(array $criteria)
  */
 class CategoryRepository extends AbstractRepository {
 }

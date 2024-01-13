@@ -13,6 +13,7 @@ use Core\AbstractRepository;
  * @method Comment|null findOneBy(array $criteria)
  * @method Comment[]    findAll()
  * @method Comment[]    findBy(array $criteria)
+ * @method int    countBy(array $criteria)
  */
 class CommentRepository extends AbstractRepository {
 }

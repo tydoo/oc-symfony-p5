@@ -51,13 +51,13 @@
 								<td>
 									{{ user.level.name }}
 								</td>
-								<td>{{ blogsPost[key]|length }}</td>
-								<td>{{ comments[key]|length }}</td>
+								<td>{{ blogsPost[key] }}</td>
+								<td>{{ comments[key] }}</td>
 								<td>
 									<a class="fr-btn fr-btn--tertiary" href="/administration/users/{{user.id}}" id="button-1362">
 										Modifier
 									</a>
-									<a class="fr-btn fr-btn--tertiary" {% if blogsPost[key]|length == 0 and comments[key]|length == 0 %} href="/administration/users/{{user.id}}/remove" {% endif %} id="button-1362">
+									<a class="fr-btn fr-btn--tertiary" {% if blogsPost[key] == 0 and comments[key] == 0 %} href="/administration/users/{{user.id}}/remove" {% endif %} id="button-1362">
 										Supprimer
 									</a>
 								</td>

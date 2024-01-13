@@ -38,8 +38,8 @@ class AdministrationController extends AbstractController {
         $blogsPost = [];
         $comments = [];
         foreach ($users as $key => $user) {
-            $blogsPost[$key] = $this->blogPostRepository->findBy(['user_id' => $user->getId()]);
-            $comments[$key] = $this->commentRepository->findBy(['user_id' => $user->getId()]);
+            $blogsPost[$key] = $this->blogPostRepository->countBy(['user_id' => $user->getId()]);
+            $comments[$key] = $this->commentRepository->countBy(['user_id' => $user->getId()]);
         }
 
         return new Response(

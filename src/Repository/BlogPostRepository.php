@@ -13,6 +13,7 @@ use Core\AbstractRepository;
  * @method BlogPost|null findOneBy(array $criteria)
  * @method BlogPost[]    findAll()
  * @method BlogPost[]    findBy(array $criteria)
+ * @method int    countBy(array $criteria)
  */
 class BlogPostRepository extends AbstractRepository {
 }
