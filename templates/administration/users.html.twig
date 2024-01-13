@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+{% block title 'Gestion des utilisateurs' %}
+{% block body %}
+	<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+		<button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-3891">Voir le fil d’Ariane</button>
+		<div class="fr-collapse" id="breadcrumb-3891">
+			<ol class="fr-breadcrumb__list">
+				<li>
+					<a class="fr-breadcrumb__link" id="breadcrumb-3883" href="/home">Accueil</a>
+				</li>
+				<li>
+					<a class="fr-breadcrumb__link">Administration</a>
+				</li>
+				<li>
+					<a class="fr-breadcrumb__link" aria-current="page">Gestion des utilisateurs</a>
+				</li>
+			</ol>
+		</div>
+	</nav>
+	<main role="main" id="content">
+		<div class="fr-container fr-container--fluid fr-mb-md-14v">
+			<div class="fr-table fr-table--bordered fr-table--layout-fixed" id="table-7142">
+				<table>
+					<caption>Gestion des utilisateurs</caption>
+					<thead>
+						<tr>
+							<th scope="col">Utilisateur
+							</th>
+							<th scope="col">Email
+							</th>
+							<th scope="col">Level
+							</th>
+							<th scope="col">Articles
+							</th>
+							<th scope="col">Commentaires
+							</th>
+							<th scope="col">Action
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for key,user in users %}
+							<tr>
+								<td>
+									{{ user.firstname }}
+									{{ user.lastname }}
+								</td>
+								<td>
+									{{ user.email }}
+								</td>
+								<td>
+									{{ user.level.name }}
+								</td>
+								<td>{{ blogsPost[key]|length }}</td>
+								<td>{{ comments[key]|length }}</td>
+								<td>
+									<a class="fr-btn fr-btn--tertiary" href="/administration/users/{{user.id}}" id="button-1362">
+										Modifier
+									</a>
+									<a class="fr-btn fr-btn--tertiary" {% if blogsPost[key]|length == 0 and comments[key]|length == 0 %} href="/administration/users/{{user.id}}/remove" {% endif %} id="button-1362">
+										Supprimer
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+{% endblock %}
