@@ -1,7 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title %}
-	{{category.name}}
-{% endblock %}
+{% block title 'Contact' %}
 {% block body %}
 	<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
 		<button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-3891">Voir le fil d’Ariane</button>
@@ -11,23 +9,9 @@
 					<a class="fr-breadcrumb__link" id="breadcrumb-3883" href="/home">Accueil</a>
 				</li>
 				<li>
-					<a class="fr-breadcrumb__link" aria-current="page">{{ category.name }}</a>
+					<a class="fr-breadcrumb__link" id="breadcrumb-3883" aria-current="page">Contact</a>
 				</li>
 			</ol>
 		</div>
 	</nav>
-	<main role="main" id="content">
-		<div class="fr-container">
-			<div class="flex justify-center">
-				<h1>{{ category.name }}</h1>
-			</div>
-			<div class="flex flex-col">
-				{% for blogPost in blogPosts %}
-					<article>
-						{{ blogPost.title }}
-					</article>
-				{% endfor %}
-			</div>
-		</div>
-	</main>
 {% endblock %}

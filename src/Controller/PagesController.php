@@ -6,7 +6,7 @@ use Core\Attribute\Route;
 use Core\Response\Response;
 use Core\Response\RedirectResponse;
 
-class HomeController {
+class PagesController {
 
     #[Route(path: '/', name: 'index')]
     public function index(): RedirectResponse {
@@ -16,5 +16,10 @@ class HomeController {
     #[Route(path: '/home', name: 'home')]
     public function home(): Response {
         return new Response('home.html.twig');
+    }
+
+    #[Route(path: '/contact', name: 'contact')]
+    public function contact(): Response {
+        return new Response('contact.html.twig');
     }
 }
