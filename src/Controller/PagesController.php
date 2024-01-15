@@ -30,22 +30,28 @@ class PagesController {
     #[Route(path: '/contact', name: 'contact', methods: ['GET', 'POST'])]
     public function contact(): Response {
         $message = null;
+        $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$this->security->isCsrfTokenValid('contact', $_POST['_csrf_token'])) {
                 $message = "Une erreur est survenue, veuillez réessayer.";
             } else {
-                $username = htmlspecialchars(strip_tags(trim(addslashes($_POST['username']))));
-                $message = htmlspecialchars(strip_tags(trim(addslashes($_POST['message']))));
+                $username = filter_var(htmlspecialchars(strip_tags(trim(addslashes($_POST['username'])))), FILTER_SANITIZE_EMAIL);
+                if (!$username || !$this->checkEmail($username)) {
+                    $error = 2;
+                    $message = "L'adresse email n'est pas valide.";
+                } else {
+                    $message = htmlspecialchars(strip_tags(trim(addslashes($_POST['message']))));
 
-                $mail = new Message;
-                $mail->setFrom("$username <$username>")
-                    ->addTo('thomas@tydoo.fr')
-                    ->setSubject('Mesage du blog')
-                    ->setBody($message);
+                    $mail = new Message;
+                    $mail->setFrom("$username <$username>")
+                        ->addTo('thomas@tydoo.fr')
+                        ->setSubject('Mesage du blog')
+                        ->setBody($message);
 
-                $mailer = new SendmailMailer;
-                $mailer->send($mail);
-                return new RedirectResponse('contact_done');
+                    $mailer = new SendmailMailer;
+                    $mailer->send($mail);
+                    return new RedirectResponse('contact_done');
+                }
             }
         }
 
@@ -53,6 +59,7 @@ class PagesController {
             'contact.html.twig',
             [
                 'message' => $message,
+                'error' => $error,
                 '_csrf_token' => $this->security->generateToken('contact')
             ]
         );
@@ -61,5 +68,15 @@ class PagesController {
     #[Route('/contact/done', name: 'contact_done', methods: ['GET'])]
     public function contact_done(): Response {
         return new Response('contact_done.html.twig');
+    }
+
+    private function checkEmail($email): bool {
+        $pattern = '/^\S+@\S+\.\S+$/';
+
+        if (preg_match($pattern, $email)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
