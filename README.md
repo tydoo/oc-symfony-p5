@@ -28,3 +28,7 @@ php -S localhost:8000 -t ./public
 |:---------------:|:---------------:|
 |thomas@tydoo.fr|123456|
 |johndoe@gmail.com|123456|
+
+### Email
+Les emails sont capturés ici
+http://127.0.0.1:1080/
