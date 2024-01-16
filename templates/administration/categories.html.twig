@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title 'Gestion des utilisateurs' %}
+{% block title 'Gestion des catégories' %}
 {% block body %}
 	<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
 		<button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-3891">Voir le fil d’Ariane</button>
@@ -12,7 +12,7 @@
 					<a class="fr-breadcrumb__link">Administration</a>
 				</li>
 				<li>
-					<a class="fr-breadcrumb__link" aria-current="page">Gestion des utilisateurs</a>
+					<a class="fr-breadcrumb__link" aria-current="page">Gestion des catégories</a>
 				</li>
 			</ol>
 		</div>
@@ -21,44 +21,35 @@
 		<div class="fr-container fr-container--fluid fr-mb-md-14v">
 			<div class="fr-table fr-table--bordered fr-table--layout-fixed" id="table-7142">
 				<table>
-					<caption>Gestion des utilisateurs</caption>
+					<caption class="flex flex-col sm:flex-row gap-4 justify-between items-center w-full">
+						<span>Gestion des catégories</span>
+						<a class="fr-btn" href="/administration/categories/create" id="button-create">
+							<i class="fa-solid fa-plus mr-3"></i>Ajouter une catégorie
+						</a>
+					</caption>
 					<thead>
 						<tr>
-							<th scope="col">Utilisateur
-							</th>
-							<th scope="col">Email
-							</th>
-							<th scope="col">Level
+							<th scope="col">Catégorie
 							</th>
 							<th scope="col">Articles
-							</th>
-							<th scope="col">Commentaires
 							</th>
 							<th scope="col">Action
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for key,user in users %}
+						{% for key,category in categories %}
 							<tr>
 								<td>
-									{{ user.firstname }}
-									{{ user.lastname }}
-								</td>
-								<td>
-									{{ user.email }}
-								</td>
-								<td>
-									{{ user.level.name }}
+									{{ category.name }}
 								</td>
 								<td>{{ blogsPost[key] }}</td>
-								<td>{{ comments[key] }}</td>
 								<td>
 									<div class="flex gap-2 flex-col items-center w-full">
-										<a class="fr-btn fr-btn--tertiary" href="/administration/users/{{user.id}}" id="button-1362">
+										<a class="fr-btn fr-btn--tertiary" href="/administration/categories/{{category.id}}" id="button-1362">
 											<i class="fa-solid fa-pen mr-3"></i>Modifier
 										</a>
-										<a class="fr-btn fr-btn--tertiary" {% if blogsPost[key] == 0 and comments[key] == 0 %} href="/administration/users/{{user.id}}/remove" {% endif %} id="button-1362">
+										<a class="fr-btn fr-btn--tertiary" {% if blogsPost[key] == 0 %} href="/administration/categories/{{category.id}}/remove" {% endif %} id="button-1362">
 											<i class="fa-solid fa-trash mr-3"></i>Supprimer
 										</a>
 									</div>

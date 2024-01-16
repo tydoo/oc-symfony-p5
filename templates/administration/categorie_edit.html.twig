@@ -1,7 +1,6 @@
 {% extends "base.html.twig" %}
-{% block title %}Modification de
-	{{ user.firstname }}
-	{{ user.lastname }}
+{% block title %}Modifier la catégorie :
+	{{category.name}}
 {% endblock %}
 {% block body %}
 	<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
@@ -15,12 +14,11 @@
 					<a class="fr-breadcrumb__link">Administration</a>
 				</li>
 				<li>
-					<a class="fr-breadcrumb__link" href="/administration/users">Gestion des utilisateurs</a>
+					<a class="fr-breadcrumb__link" href="/administration/categories">Gestion des catégories</a>
 				</li>
 				<li>
-					<a class="fr-breadcrumb__link" aria-current="page">Modification de
-						{{ user.firstname }}
-						{{ user.lastname }}</a>
+					<a class="fr-breadcrumb__link" aria-current="page">Modifier la catégorie :
+						{{category.name}}</a>
 				</li>
 			</ol>
 		</div>
@@ -29,9 +27,8 @@
 		<div class="fr-container fr-mt-8v fr-mt-md-14v fr-mb-2v fr-mb-md-8v">
 			<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
 				<div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
-					<h1 class="fr-h2">Modification de
-						{{ user.firstname }}
-						{{ user.lastname }}</h1>
+					<h1 class="fr-h2">Modifier la catégorie :
+						{{category.name}}</h1>
 				</div>
 			</div>
 		</div>
@@ -42,7 +39,7 @@
 						<div class="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
 							<div class="fr-col-12 fr-col-md-10 fr-col-lg-9">
 								<div>
-									<form class="fr-mb-0" id="login-9170" method="post" action="/administration/users/{{ user.id }}" data-turbo="false">
+									<form class="fr-mb-0" id="login-9170" method="post" action="/administration/categories/{{category.id}}" data-turbo="false">
 										<input type="hidden" name="_csrf_token" value="{{ _csrf_token }}">
 										<fieldset class="fr-mb-0 fr-fieldset" id="login-9170-fieldset" aria-labelledby="login-9170-fieldset-legend login-9170-fieldset-messages">
 											<div class="fr-fieldset__element">
@@ -55,51 +52,25 @@
 													</div>
 												</div>
 											{% endif %}
-											<div class="fr-fieldset__element {{ error == 2 ? 'fr-fieldset--error' : '' }}">
+											<div class="fr-fieldset__element {{ error == 4 ? 'fr-fieldset--error' : '' }}">
 												<div class="fr-input-group" id="input-group-9175">
-													<label class="fr-label" for="username-9166">
-														Adresse email
-														<span class="fr-hint-text">Format attendu : nom@domaine.fr</span>
+													<label class="fr-label" for="name-9166">
+														Nom de la catégorie
 													</label>
-													<input value="{{ user.email }}" class="fr-input" autocapitalize="off" autocorrect="off" aria-describedby="username-9166-messages" name="username" id="username-9166" type="text" required>
-													<div class="fr-messages-group" id="username-9166-messages" aria-live="polite"></div>
-												</div>
-											</div>
-											<div class="fr-fieldset__element {{ error == 4 ? 'fr-fieldset--error' : '' }}">
-												<div class="fr-input-group" id="input-group-19175">
-													<label class="fr-label" for="firstname-19166">
-														Prénom
-													</label>
-													<input value="{{ user.firstname }}" class="fr-input" autocapitalize="off" autocorrect="off" aria-describedby="firstname-19166-messages" name="firstname" id="firstname-19166" type="text" required>
-													<div class="fr-messages-group" id="firstname-19166-messages" aria-live="polite"></div>
-												</div>
-											</div>
-											<div class="fr-fieldset__element {{ error == 4 ? 'fr-fieldset--error' : '' }}">
-												<div class="fr-input-group" id="input-group-19175">
-													<label class="fr-label" for="lastname-19166">
-														Nom de famille
-													</label>
-													<input value="{{ user.lastname }}" class="fr-input" autocapitalize="off" autocorrect="off" aria-describedby="lastname-19166-messages" name="lastname" id="lastname-19166" type="text" required>
-													<div class="fr-messages-group" id="lastname-19166-messages" aria-live="polite"></div>
-												</div>
-											</div>
-											<div class="fr-fieldset__element">
-												<div class="fr-input-group" id="input-group-19175">
-													<label class="fr-label" for="level-19166">
-														Level
-													</label>
-													<select class="fr-select" aria-describedby="select-messages" id="select" name="level">
-														<option {{ user.level.name == 'Administrateur' ? 'selected' : '' }} value="Administrateur">Administrateur</option>
-														<option {{ user.level.name == 'Utilisateur' ? 'selected' : '' }} value="Utilisateur">Utilisateur</option>
-													</select>
-													<div class="fr-messages-group" id="level-19166-messages" aria-live="polite"></div>
+													<input value="{{ category.name }}" class="fr-input" autocapitalize="off" autocorrect="off" aria-describedby="name-9166-messages" name="name" id="name-9166" type="text" required>
+													<div class="fr-messages-group" id="password-9167-input-messages" aria-live="polite">
+														<p class="fr-message" id="password-9167-input-message">Le nom de la catégorie doit contenir :</p>
+														<p class="fr-message fr-message--info" id="password-9167-input-message-info">3 caractères minimum</p>
+														<p class="fr-message fr-message--info" id="password-9168-input-message-info">commencer par une lettre</p>
+														<p class="fr-message fr-message--info" id="password-9168-input-message-info">ne pas déjà exister (dans les autres catégories)</p>
+													</div>
 												</div>
 											</div>
 											<div class="flex justify-between w-full">
 												<div class="fr-fieldset__element">
 													<ul class="fr-mt-2v fr-btns-group fr-btns-group--inline-reverse fr-btns-group--inline-sm fr-btns-group fr-btns-group--inline-reverse fr-btns-group--inline-sm">
 														<li>
-															<a class="fr-btn fr-btn--secondary" id="button-9176" href="/administration/users">
+															<a class="fr-btn fr-btn--secondary" id="button-9176" href="/administration/categories">
 																Annuler
 															</a>
 														</li>

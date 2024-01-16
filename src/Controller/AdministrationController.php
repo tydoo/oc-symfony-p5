@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Core\Security;
-use App\Entity\User;
+use App\Entity\Category;
 use Core\Attribute\Route;
 use Core\Response\Response;
 use Core\AbstractController;
@@ -13,6 +13,7 @@ use App\Repository\LevelRepository;
 use Core\Response\RedirectResponse;
 use App\Repository\CommentRepository;
 use App\Repository\BlogPostRepository;
+use App\Repository\CategoryRepository;
 
 class AdministrationController extends AbstractController {
 
@@ -21,6 +22,7 @@ class AdministrationController extends AbstractController {
     private readonly LevelRepository $levelRepository;
     private readonly BlogPostRepository $blogPostRepository;
     private readonly CommentRepository $commentRepository;
+    private readonly CategoryRepository $categoryRepository;
 
     public function __construct() {
         $this->security = new Security();
@@ -28,6 +30,7 @@ class AdministrationController extends AbstractController {
         $this->levelRepository = new LevelRepository();
         $this->blogPostRepository = new BlogPostRepository();
         $this->commentRepository = new CommentRepository();
+        $this->categoryRepository = new CategoryRepository();
     }
 
     #[isGranted('Administrateur')]
@@ -118,5 +121,126 @@ class AdministrationController extends AbstractController {
         } else {
             return false;
         }
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/categories', name: 'administration_categories', methods: ['GET'])]
+    public function categories(): Response {
+        $categories = $this->categoryRepository->findAll();
+
+        $blogsPost = [];
+        foreach ($categories as $key => $category) {
+            $blogsPost[$key] = $this->blogPostRepository->countBy(['category_id' => $category->getId()]);
+        }
+
+        return new Response(
+            'administration/categories.html.twig',
+            [
+                'categories' => $categories,
+                'blogsPost' => $blogsPost,
+            ]
+        );
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/categories/create', name: 'administration_categories_create', methods: ['GET', 'POST'])]
+    public function categorie_create(): Response {
+        $error = false;
+        $message = false;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$this->security->isCsrfTokenValid('categories_create', $_POST['_csrf_token'])) {
+                $error = 1;
+                $message = "Une erreur est survenue, veuillez réessayer.";
+            } else {
+                $pattern = '/^[a-zA-ZÀ-ÿ][a-zA-Z0-9-_ À-ÿ]*$/';
+                $categoryName = htmlspecialchars(strip_tags(trim(addslashes($_POST['name']))));
+                $categoryCheck = $this->categoryRepository->findOneBy(['name' => $categoryName]);
+
+                if (
+                    $_POST['name'] === '' ||
+                    !preg_match($pattern, $categoryName) ||
+                    strlen($categoryName) < 3 ||
+                    $categoryCheck !== null
+                ) {
+                    $error = 4;
+                    $message = "Le nom de la catégorie n'est pas valide.";
+                } else {
+                    $category = new Category();
+                    $category
+                        ->setName($categoryName);
+                    $this->categoryRepository->save($category);
+                    $this->security->removeSession('categories_create');
+                    return new RedirectResponse('administration_categories');
+                }
+            }
+        }
+
+        return new Response(
+            'administration/categorie_create.html.twig',
+            [
+                'error' => $error,
+                'message' => $message,
+                '_csrf_token' => $this->security->generateToken('categories_create'),
+            ]
+        );
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/categories/{id}', name: 'administration_categories_edit', methods: ['GET', 'POST'])]
+    public function categorie_edit(int $id): Response {
+        $category = $this->categoryRepository->find($id);
+        if ($category === null) {
+            return new RedirectResponse('administration_categories');
+        }
+
+        $error = false;
+        $message = false;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$this->security->isCsrfTokenValid('categories_edit', $_POST['_csrf_token'])) {
+                $error = 1;
+                $message = "Une erreur est survenue, veuillez réessayer.";
+            } else {
+                $pattern = '/^[a-zA-ZÀ-ÿ][a-zA-Z0-9-_ À-ÿ]*$/';
+                $categoryName = htmlspecialchars(strip_tags(trim(addslashes($_POST['name']))));
+                $categoryCheck = $this->categoryRepository->findOneBy(['name' => $categoryName]);
+                if (
+                    $_POST['name'] === '' ||
+                    !preg_match($pattern, $categoryName) ||
+                    strlen($categoryName) < 3 ||
+                    $categoryCheck !== null
+                ) {
+                    $error = 4;
+                    $message = "Le nom de la catégorie n'est pas valide.";
+                } else {
+                    $category
+                        ->setName($categoryName);
+                    $this->categoryRepository->save($category);
+                    $this->security->removeSession('categories_create');
+                    return new RedirectResponse('administration_categories');
+                }
+            }
+        }
+
+
+        return new Response(
+            'administration/categorie_edit.html.twig',
+            [
+                'error' => $error,
+                'message' => $message,
+                'category' => $category,
+                '_csrf_token' => $this->security->generateToken('categories_edit'),
+            ]
+        );
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/categories/{id}/remove', name: 'administration_categories_remove', methods: ['GET'])]
+    public function categories_remove(int $id): RedirectResponse {
+        $category = $this->categoryRepository->find($id);
+        if ($category !== null) {
+            $this->categoryRepository->delete($category);
+        }
+        return new RedirectResponse('administration_categories');
     }
 }
