@@ -24,10 +24,10 @@ npm run build
 php -S localhost:8000 -t ./public
 ```
 
-|Utilisateur|Mot de passe|
-|:---------------:|:---------------:|
-|thomas@tydoo.fr|123456|
-|johndoe@gmail.com|123456|
+|Utilisateur|Mot de passe|Level|
+|:---------------:|:---------------:|:---------------:|
+|thomas@tydoo.fr|123456|Administrateur|
+|johndoe@gmail.com|123456|Utilisateur|
 
 ### Email
 Les emails sont capturés ici
