@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\BlogPost;
 use Core\Security;
 use App\Entity\Category;
 use Core\Attribute\Route;
@@ -242,5 +243,129 @@ class AdministrationController extends AbstractController {
             $this->categoryRepository->delete($category);
         }
         return new RedirectResponse('administration_categories');
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/articles', name: 'administration_articles', methods: ['GET'])]
+    public function articles(): Response {
+        $articles = $this->blogPostRepository->findAll();
+
+        $comments = [];
+        foreach ($articles as $key => $article) {
+            $comments[$key] = $this->commentRepository->countBy(['blog_post_id' => $article->getId()]);
+        }
+
+        return new Response(
+            'administration/articles.html.twig',
+            [
+                'articles' => $articles,
+                'comments' => $comments,
+            ]
+        );
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/articles/create', name: 'administration_articles_create', methods: ['GET', 'POST'])]
+    public function articles_create(): Response {
+        $error = false;
+        $message = false;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$this->security->isCsrfTokenValid('articles_create', $_POST['_csrf_token'])) {
+                $error = 1;
+                $message = "Une erreur est survenue, veuillez réessayer.";
+            } else {
+                $pattern = '/^[a-zA-ZÀ-ÿ][a-zA-Z0-9-_ À-ÿ.,;:!?"\'()]*$/';
+                $title = htmlspecialchars(strip_tags(trim(addslashes($_POST['name']))));
+                if (
+                    $_POST['name'] === '' ||
+                    !preg_match($pattern, $title) ||
+                    strlen($title) < 3
+                ) {
+                    $error = 4;
+                    $message = "Le titre de l'article n'est pas valide.";
+                } else {
+                    $article = new BlogPost();
+                    $article
+                        ->setTitle($title)
+                        ->setCategory($this->categoryRepository->find($_POST['category']))
+                        ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
+                        ->setUser($this->security->user);
+                    $this->blogPostRepository->save($article);
+                    $this->security->removeSession('articles_create');
+                    return new RedirectResponse('administration_articles');
+                }
+            }
+        }
+
+        return new Response(
+            'administration/articles_create.html.twig',
+            [
+                'error' => $error,
+                'message' => $message,
+                'categories' => $this->categoryRepository->findAll(),
+                '_csrf_token' => $this->security->generateToken('articles_create'),
+            ]
+        );
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/articles/{id}', name: 'administration_articles_edit', methods: ['GET', 'POST'])]
+    public function articles_edit(int $id): Response {
+        $article = $this->blogPostRepository->find($id);
+        if ($article === null) {
+            return new RedirectResponse('administration_articles');
+        }
+
+        $error = false;
+        $message = false;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$this->security->isCsrfTokenValid('articles_edit', $_POST['_csrf_token'])) {
+                $error = 1;
+                $message = "Une erreur est survenue, veuillez réessayer.";
+            } else {
+                $pattern = '/^[a-zA-ZÀ-ÿ][a-zA-Z0-9-_ À-ÿ.,;:!?"\'()]*$/';
+                $title = htmlspecialchars(strip_tags(trim(addslashes($_POST['name']))));
+                if (
+                    $_POST['name'] === '' ||
+                    !preg_match($pattern, $title) ||
+                    strlen($title) < 3
+                ) {
+                    $error = 4;
+                    $message = "Le titre de l'article n'est pas valide.";
+                } else {
+                    $article
+                        ->setTitle($title)
+                        ->setCategory($this->categoryRepository->find($_POST['category']))
+                        ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
+                        ->setUser($this->security->user);
+                    $this->blogPostRepository->save($article);
+                    $this->security->removeSession('articles_edit');
+                    return new RedirectResponse('administration_articles');
+                }
+            }
+        }
+
+        return new Response(
+            'administration/articles_edit.html.twig',
+            [
+                'error' => $error,
+                'message' => $message,
+                'article' => $article,
+                'categories' => $this->categoryRepository->findAll(),
+                '_csrf_token' => $this->security->generateToken('articles_edit'),
+            ]
+        );
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/articles/{id}/remove', name: 'administration_articles_remove', methods: ['GET'])]
+    public function articles_remove(int $id): RedirectResponse {
+        $article = $this->blogPostRepository->find($id);
+        if ($article !== null) {
+            $this->blogPostRepository->delete($article);
+        }
+        return new RedirectResponse('administration_articles');
     }
 }

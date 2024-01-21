@@ -91,3 +91,12 @@ span.miniblock {
         background-color: var(--background-alt-grey-active);
     }
 }
+
+
+.markdown-editor {
+    cursor: pointer !important;
+
+    &:hover {
+        background-color: var(--background-alt-grey-hover) !important;
+    }
+}
