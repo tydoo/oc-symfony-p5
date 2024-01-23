@@ -104,7 +104,15 @@ class Router {
             $route = array_shift($route)['_route'];
             $uri = $route->getPath();
             if (count($params) > 0) {
-                $uri .= '?' . http_build_query($params);
+                foreach ($params as $key => $value) {
+                    if (strpos($uri, '{' . $key . '}') !== false) {
+                        $uri = str_replace('{' . $key . '}', $value, $uri);
+                        unset($params[$key]);
+                    }
+                }
+                if (count($params) > 0) {
+                    $uri .= '?' . http_build_query($params);
+                }
             }
             return $uri;
         } else {

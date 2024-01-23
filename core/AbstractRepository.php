@@ -183,7 +183,7 @@ class AbstractRepository {
                 } else {
                     $sql .= "{$key}";
                     $sqlPrepared .= ":{$key}";
-                    $valuesToSave[$key] = $value;
+                    $valuesToSave[$key] = is_bool($value) ? (int) $value : $value;
                 }
 
                 if ($i < count($properties)) {
@@ -232,7 +232,7 @@ class AbstractRepository {
                     }
                 } else {
                     $sql .= "{$key} = :{$key}";
-                    $valuesToSave[$key] = $value;
+                    $valuesToSave[$key] = is_bool($value) ? (int) $value : $value;
                 }
 
                 if ($i < count($properties)) {
