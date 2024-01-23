@@ -21,7 +21,7 @@
 			<div class="flex justify-center">
 				<h1>{{ category.name }}</h1>
 			</div>
-			{% include "partials/_list_post.html.twig" with blogPosts %}
+			{% include "partials/_list_post.html.twig" with {blogPosts,comments} %}
 		</div>
 	</main>
 {% endblock %}

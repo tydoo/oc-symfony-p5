@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\BlogPostRepository;
+use App\Repository\CommentRepository;
 use Core\Security;
 use Nette\Mail\Message;
 use Core\Attribute\Route;
@@ -14,10 +15,12 @@ class PagesController {
 
     private readonly Security $security;
     private readonly BlogPostRepository $blogPostRepository;
+    private readonly CommentRepository $commentRepository;
 
     public function __construct() {
         $this->security = new Security();
         $this->blogPostRepository = new BlogPostRepository();
+        $this->commentRepository = new CommentRepository();
     }
 
     #[Route(path: '/', name: 'index', methods: ['GET'])]
@@ -27,8 +30,16 @@ class PagesController {
 
     #[Route(path: '/home', name: 'home', methods: ['GET'])]
     public function home(): Response {
+        $articles = $this->blogPostRepository->findAll();
+
+        $comments = [];
+        foreach ($articles as $key => $value) {
+            $comments[$key] = $this->commentRepository->countBy(['validated' => true, 'blog_post_id' => $value->getId()]);
+        }
+
         return new Response('home.html.twig', [
-            'blogPosts' => $this->blogPostRepository->findAll()
+            'blogPosts' => $articles,
+            'comments' => $comments
         ]);
     }
 

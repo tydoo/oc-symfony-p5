@@ -49,9 +49,17 @@ class BlogController extends AbstractController {
         if (!$category) {
             throw $this->createNotFoundException('Catégorie non trouvée');
         } else {
+            $articles = $blogPostRepository->findBy(['category_id' => $category->getId()]);
+
+            $comments = [];
+            foreach ($articles as $key => $value) {
+                $comments[$key] = $this->commentRepository->countBy(['validated' => true, 'blog_post_id' => $value->getId()]);
+            }
+
             return new Response('blog/category.html.twig', [
                 'category' => $category,
-                'blogPosts' => $blogPostRepository->findBy(['category_id' => $category->getId()]), // 'category' => $category est équivalent à 'category_id' => $category->getId() car la propriété de l'entité BlogPost est 'category_id
+                'blogPosts' => $articles,
+                'comments' => $comments
             ]);
         }
     }

@@ -12,6 +12,10 @@
 				<span>{{article.createdAt|date("d/m/Y à H:i")}}</span>
 			</div>
 			<p class="mt-4">{{article.post|markdown|striptags|slice(0,600) ~ '...'}}</p>
+			<p class="fr-badge">
+				<i class="fa-solid fa-comments mr-3"></i>
+				{{ comments[key] }}
+				{{ 'commentaire' ~ (comments[key] > 1 ? 's' : '') }}</p>
 		</a>
 		{% if (key + 1) != blogPosts|length %}
 			<hr>
