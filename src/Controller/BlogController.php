@@ -48,7 +48,12 @@ class BlogController extends AbstractController {
                         ->setValidated($this->security->isGranted('Administrateur') ? true : false);
                     $this->commentRepository->save($comment);
                     $this->security->removeSession('comments_create');
-                    $message = 'Votre commentaire a bien été envoyé. Il sera publié après validation par un administrateur.';
+                    $message = 'Votre commentaire a bien été envoyé.';
+                    if ($this->security->isGranted('Administrateur')) {
+                        $message .= ' Il est visible directement.';
+                    } else {
+                        $message .= ' Il sera visible après validation par un administrateur.';
+                    }
                 }
             }
         }
