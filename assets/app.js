@@ -8,6 +8,9 @@ import '../node_modules/@gouvfr/dsfr/dist/dsfr.print.min.css';
 
 import * as Turbo from "@hotwired/turbo"
 import Stackedit from './js/StackEdit';
+import darkMode from './js/darkMode';
+
+darkMode.init();
 
 document.addEventListener("turbo:load", function () {
     document.querySelectorAll('.markdown-editor').forEach((editor) => {
