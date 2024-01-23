@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{article.title}}
+{% endblock %}
+{% block body %}
+	<nav role="navigation" class="fr-breadcrumb" aria-label="vous êtes ici :">
+		<button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-3891">Voir le fil d’Ariane</button>
+		<div class="fr-collapse" id="breadcrumb-3891">
+			<ol class="fr-breadcrumb__list">
+				<li>
+					<a class="fr-breadcrumb__link" id="breadcrumb-3883" href="/home">Accueil</a>
+				</li>
+				<li>
+					<a class="fr-breadcrumb__link" id="breadcrumb-3884" href="/category/{{article.category.id}}">{{article.category.name}}</a>
+				</li>
+				<li>
+					<a class="fr-breadcrumb__link" aria-current="page">{{ article.title }}</a>
+				</li>
+			</ol>
+		</div>
+	</nav>
+	<main role="main" id="content">
+		<div class="fr-container">
+			<div class="flex flex-col justify-center items-center">
+				<h1>{{ article.title }}</h1>
+				<p class="fr-tag mb-5" id="tag-7165">{{article.category.name}}</p>
+				<div class="flex flex-col md:flex-row gap-2 items-center">
+					<span>Écris par
+						{{ article.user.lastname|upper ~ ' ' ~ article.user.firstname|capitalize  }}</span>
+					<span class="hidden md:inline-block">●</span>
+					<span>{{article.createdAt|date("d/m/Y à H:i")}}</span>
+				</div>
+				<article class="mt-16">
+					{{ post|raw }}
+				</article>
+			</div>
+		</div>
+	</main>
+{% endblock %}
