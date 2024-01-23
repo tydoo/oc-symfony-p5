@@ -339,7 +339,8 @@ class AdministrationController extends AbstractController {
                         ->setTitle($title)
                         ->setCategory($this->categoryRepository->find($_POST['category']))
                         ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
-                        ->setUser($this->security->user);
+                        ->setUser($this->security->user)
+                        ->setUpdatedAt(new \DateTime());
                     $this->blogPostRepository->save($article);
                     $this->security->removeSession('articles_edit');
                     return new RedirectResponse('administration_articles');

@@ -28,7 +28,7 @@
 					<span>Écris par
 						{{ article.user.lastname|upper ~ ' ' ~ article.user.firstname|capitalize  }}</span>
 					<span class="hidden md:inline-block">●</span>
-					<span>{{article.createdAt|date("d/m/Y à H:i")}}</span>
+					<span>{{article.updatedAt|date("d/m/Y à H:i")}}</span>
 				</div>
 				<article class="mt-16">
 					{{ post|raw }}

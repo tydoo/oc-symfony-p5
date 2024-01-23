@@ -6,10 +6,9 @@
 				{{ article.title }}
 			</h2>
 			<div class="flex gap-2 items-center">
-				<span>Écris par
-					{{ article.user.lastname|upper ~ ' ' ~ article.user.firstname|capitalize  }}</span>
-				<span>●</span>
-				<span>{{article.createdAt|date("d/m/Y à H:i")}}</span>
+				<span>
+					<i class="fa-solid fa-clock mr-2"></i>
+					{{article.updatedAt|date("d/m/Y à H:i")}}</span>
 			</div>
 			<p class="mt-4">{{article.post|markdown|striptags|slice(0,600) ~ '...'}}</p>
 			<p class="fr-badge">
