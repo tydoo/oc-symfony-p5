@@ -37,11 +37,79 @@
 			<div class="mt-24 flex justify-between items-start">
 				<h2>
 					<i class="fa-solid fa-comments mr-3"></i>Commentaires</h2>
-				<button class="fr-btn mt-[2px]">
+				<button data-fr-opened="false" aria-controls="modal-5878" class="fr-btn mt-[2px]">
 					<i class="fa-solid fa-plus"></i>
 					<span class="hidden sm:inline sm:ml-3">Ajouter un commentaire</span>
 				</button>
+				<dialog id="modal-5878" class="fr-modal" aria-labelledby="modal-5878-title">
+					<div class="fr-container fr-container--fluid fr-container-md">
+						<div class="fr-grid-row fr-grid-row--center">
+							<div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+								<div class="fr-modal__body">
+									<div class="fr-modal__header">
+										<button class="fr-btn--close fr-btn" aria-controls="modal-5878" id="button-5880" title="Fermer">
+											Fermer
+										</button>
+									</div>
+									<div class="fr-modal__content">
+										<h1 id="modal-5878-title" class="fr-modal__title">
+											<span class="fr-icon-arrow-right-line fr-icon--lg" aria-hidden="true"></span>
+											Ajouter un commentaire
+										</h1>
+										{% if is_granted('Utilisateur') %}
+											<form class="fr-mb-0" id="login-9170" method="post" action="/article/{{article.id}}" data-turbo="false">
+												<input type="hidden" name="_csrf_token" value="{{ _csrf_token }}">
+												<fieldset class="fr-mb-0 fr-fieldset" id="login-9170-fieldset" aria-labelledby="login-9170-fieldset-legend login-9170-fieldset-messages">
+													<div class="fr-fieldset__element">
+														<p class="fr-hint-text">Sauf mention contraire, tous les champs sont obligatoires.</p>
+													</div>
+													<div class="fr-fieldset__element">
+														<div class="fr-password" id="password-9167">
+															<label class="fr-label" for="password-9167-input">
+																Votre commentaire
+															</label>
+															<div class="fr-input-wrap">
+																<textarea required class="fr-input" name="message" cols="30" rows="10"></textarea>
+															</div>
+														</div>
+													</div>
+													<div class="fr-fieldset__element">
+														<ul class="fr-mt-2v fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-sm fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-sm">
+															<li>
+																<button class="fr-btn" id="button-9176" type="submit">
+																	Valider
+																</button>
+															</li>
+														</ul>
+													</div>
+													<div class="fr-messages-group" id="login-9170-fieldset-messages" aria-live="polite"></div>
+												</fieldset>
+											</form>
+										{% else %}
+											<div id="callout-5841" class="fr-callout fr-icon-info-line !mt-8">
+												<h3 class="fr-callout__title">Connexion requise !</h3>
+												<p class="fr-callout__text">Hé là ! On dirait que vous êtes prêt à rejoindre la conversation, c'est génial ! Mais avant, vous devez vous connecter. Allez, c'est comme un jeu de cache-cache, mais à l'envers !</p>
+												<a class="fr-btn" href="/login">
+													Se connecter
+												</a>
+											</div>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</dialog>
 			</div>
+			{% if message %}
+				<div id="alert-1168" class="fr-alert fr-alert--success mb-5">
+					<h3 class="fr-alert__title">Succès de l&#39;envoi</h3>
+					<p>{{message}}</p>
+					<button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)" id="button-1179">
+						Masquer le message
+					</button>
+				</div>
+			{% endif %}
 			<hr>
 			{% for key,comment in comments %}
 				{% if comment.validated or is_granted('Administrateur') %}
