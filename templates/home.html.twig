@@ -11,4 +11,10 @@
 			</ol>
 		</div>
 	</nav>
+	<main role="main" id="content">
+		<h1>Tous mes articles</h1>
+		<div class="fr-container">
+			{% include "partials/_list_post.html.twig" with blogPosts %}
+		</div>
+	</main>
 {% endblock %}

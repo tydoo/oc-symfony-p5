@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\BlogPostRepository;
 use Core\Security;
 use Nette\Mail\Message;
 use Core\Attribute\Route;
@@ -12,9 +13,11 @@ use Core\Response\RedirectResponse;
 class PagesController {
 
     private readonly Security $security;
+    private readonly BlogPostRepository $blogPostRepository;
 
     public function __construct() {
         $this->security = new Security();
+        $this->blogPostRepository = new BlogPostRepository();
     }
 
     #[Route(path: '/', name: 'index', methods: ['GET'])]
@@ -24,7 +27,9 @@ class PagesController {
 
     #[Route(path: '/home', name: 'home', methods: ['GET'])]
     public function home(): Response {
-        return new Response('home.html.twig');
+        return new Response('home.html.twig', [
+            'blogPosts' => $this->blogPostRepository->findAll()
+        ]);
     }
 
     #[Route(path: '/contact', name: 'contact', methods: ['GET', 'POST'])]

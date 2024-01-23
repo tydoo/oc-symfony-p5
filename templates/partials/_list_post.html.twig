@@ -1,0 +1,21 @@
+<div class="flex flex-col">
+	{% for key,article in blogPosts %}
+		<a href="/article/{{article.id}}" class="p-4 mt-4 mb-8 rounded-sm hover:!bg-gray-50 dark:hover:!bg-neutral-950">
+			<p class="fr-tag mb-5" id="tag-7165">{{article.category.name}}</p>
+			<h2 class="text-2xl font-bold !mb-2">
+				{{ article.title }}
+			</h2>
+			<div class="flex gap-2 items-center">
+				<span>Écris par
+					{{ article.user.lastname|upper ~ ' ' ~ article.user.firstname|capitalize  }}</span>
+				<span>●</span>
+				<span>{{article.createdAt|date("d/m/Y à H:i")}}</span>
+			</div>
+			<p class="mt-4">{{article.post|markdown|striptags|slice(0,600) ~ '...'}}</p>
+		</a>
+		{% if (key + 1) != blogPosts|length %}
+			<hr>
+		{% endif %}
+
+	{% endfor %}
+</div>
