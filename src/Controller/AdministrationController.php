@@ -368,4 +368,36 @@ class AdministrationController extends AbstractController {
         }
         return new RedirectResponse('administration_articles');
     }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/comments/{id}/validate', name: 'administration_comments_validate', methods: ['GET'])]
+    public function comments_validate(int $id): RedirectResponse {
+        $comment = $this->commentRepository->find($id);
+        if ($comment !== null) {
+            $comment->setValidated(true);
+            $this->commentRepository->save($comment);
+        }
+        return new RedirectResponse('article', ['id' => $comment->getBlogPost()->getId()]);
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/comments/{id}/unvalidate', name: 'administration_comments_unvalidate', methods: ['GET'])]
+    public function comments_unvalidate(int $id): RedirectResponse {
+        $comment = $this->commentRepository->find($id);
+        if ($comment !== null) {
+            $comment->setValidated(false);
+            $this->commentRepository->save($comment);
+        }
+        return new RedirectResponse('article', ['id' => $comment->getBlogPost()->getId()]);
+    }
+
+    #[isGranted('Administrateur')]
+    #[Route('/administration/comments/{id}/remove', name: 'administration_comments_remove', methods: ['GET'])]
+    public function comments_remove(int $id): RedirectResponse {
+        $comment = $this->commentRepository->find($id);
+        if ($comment !== null) {
+            $this->commentRepository->delete($comment);
+        }
+        return new RedirectResponse('article', ['id' => $comment->getBlogPost()->getId()]);
+    }
 }

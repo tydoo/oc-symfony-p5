@@ -34,6 +34,42 @@
 					{{ post|raw }}
 				</article>
 			</div>
+			<div class="mt-24 flex justify-between items-start">
+				<h2>Commentaires</h2>
+				<button class="fr-btn mt-[2px]">
+					<i class="fa-solid fa-plus"></i>
+					<span class="hidden sm:inline sm:ml-3">Ajouter un commentaire</span>
+				</button>
+			</div>
+			<hr>
+			{% for key,comment in comments %}
+				{% if comment.validated or is_granted('Administrateur') %}
+					<div class="flex rounded-sm flex-col gap-5 {% if comment.validated %} bg-gray-50 dark:bg-neutral-950 {% else %} bg-red-100 dark:bg-red-900 {% endif %}  p-4 mt-5">
+						<div class="flex flex-col gap-2">
+							<div class="flex flex-row gap-2 items-center font-bold text-lg">
+								<span>Écris par
+									{{ comment.user.lastname|upper ~ ' ' ~ comment.user.firstname|capitalize  }}</span>
+								<span class="inline-block">●</span>
+								<span>{{comment.createdAt|date("d/m/Y à H:i")}}</span>
+							</div>
+							<p class="text-lg">{{comment.comment}}</p>
+						</div>
+						<div class="flex gap-4">
+							{% if is_granted('Administrateur') %}
+								{% if not comment.validated %}
+									<a class="fr-btn" href="/administration/comments/{{comment.id}}/validate">
+										<i class="fa-solid fa-check mr-3"></i>Valider</a>
+								{% else %}
+									<a class="fr-btn" href="/administration/comments/{{comment.id}}/unvalidate">
+										<i class="fa-solid fa-xmark mr-3"></i>Cacher (dévalidation)</a>
+								{% endif %}
+								<a class="fr-btn" href="/administration/comments/{{comment.id}}/remove">
+									<i class="fa-solid fa-trash mr-3"></i>Supprimer</a>
+							{% endif %}
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
 		</div>
 	</main>
 {% endblock %}
