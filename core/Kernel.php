@@ -9,17 +9,22 @@ use Core\Controller\ErrorController;
 class Kernel {
 
     private Router $router;
-    private Security $security;
 
     public function run() {
         $this->loadEnv();
+
+        if ($_ENV['APP_ENV'] === 'dev') {
+            error_reporting(E_ALL);
+        } else {
+            error_reporting(E_ALL ^ E_DEPRECATED);
+        }
+
         try {
-            $this->security = new Security();
+            new Security();
             $this->router = new Router();
             $this->router->run($_SERVER['REQUEST_URI']);
         } catch (Throwable $th) {
             if ($_ENV['APP_ENV'] === 'dev') {
-                error_reporting(E_ALL);
                 throw $th;
             } else {
                 $error = new ErrorController();

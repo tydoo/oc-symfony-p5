@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Exception;
 use ReflectionClass;
 use ReflectionMethod;
 use Core\Attribute\Route;
@@ -77,7 +78,7 @@ class Router {
             $route = array_shift($route);
             if ($route['_levelRequired'] !== null) {
                 if (!$this->security->isGranted($route['_levelRequired'])) {
-                    $this->loadError403();
+                    throw new Exception('Accès interdit', 403);
                 }
             }
             $route = $route['_route'];
@@ -91,7 +92,7 @@ class Router {
             }
             $controller->{$route->getAction()}($id);
         } else {
-            $this->loadError404();
+            throw new Exception('Page introuvable', 404);
         }
     }
 
@@ -116,17 +117,7 @@ class Router {
             }
             return $uri;
         } else {
-            $this->loadError404();
+            throw new Exception('Page introuvable', 404);
         }
-    }
-
-    private function loadError404() {
-        $error = new ErrorController();
-        $error->notFound();
-    }
-
-    private function loadError403() {
-        $error = new ErrorController();
-        $error->forbidden();
     }
 }
