@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Core\AbstractEntity;
 use Core\Attribute\Entity;
-use Core\Interface\LevelInterface;
+use Core\BlogInterface\LevelInterface;
 use App\Repository\LevelRepository;
 
 #[Entity(table: 'level', repository: LevelRepository::class)]

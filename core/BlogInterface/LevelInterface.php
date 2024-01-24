@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Interface;
+namespace Core\BlogInterface;
 
 interface LevelInterface {
     public function getName(): string;

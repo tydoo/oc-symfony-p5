@@ -5,7 +5,7 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Core\AbstractEntity;
 use Core\Attribute\Entity;
-use Core\Interface\UserInterface;
+use Core\BlogInterface\UserInterface;
 use App\Repository\UserRepository;
 
 #[Entity(table: 'user', repository: UserRepository::class)]
