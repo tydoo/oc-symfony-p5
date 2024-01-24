@@ -13,6 +13,7 @@ class BlogPost extends AbstractEntity {
     private ?int $id = null;
     private string $title;
     private string $post;
+    private string $chapo;
     private DateTimeImmutable $createdAt;
     private DateTime $updatedAt;
     private User $user;
@@ -47,6 +48,15 @@ class BlogPost extends AbstractEntity {
 
     public function setPost(string $post): self {
         $this->post = $post;
+        return $this;
+    }
+
+    public function getChapo(): string {
+        return $this->chapo;
+    }
+
+    public function setChapo(string $chapo): self {
+        $this->chapo = $chapo;
         return $this;
     }
 

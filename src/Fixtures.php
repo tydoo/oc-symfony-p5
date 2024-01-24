@@ -73,6 +73,7 @@ class Fixtures {
         $BlogPostRepository->save(
             (new BlogPost())
                 ->setTitle('Mon premier article')
+                ->setChapo("Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.")
                 ->setPost('Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.
                 Praesentium fugiat obcaecati ea quasi ab soluta nemo exercitationem magnam consequatur quia numquam, accusantium quo, laboriosam incidunt quidem quae recusandae sunt voluptate minima quaerat laborum esse reprehenderit? Dolore, incidunt magni.
                 Voluptate neque commodi autem reiciendis perspiciatis ad magni quod aperiam possimus voluptas eligendi aspernatur cupiditate error quam, expedita porro, veritatis est incidunt doloribus reprehenderit! Maxime cupiditate quidem ipsum saepe ipsam!
@@ -85,6 +86,7 @@ class Fixtures {
         $BlogPostRepository->save(
             (new BlogPost())
                 ->setTitle('Mon deuxième article')
+                ->setChapo("Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.")
                 ->setPost('Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.
                 Praesentium fugiat obcaecati ea quasi ab soluta nemo exercitationem magnam consequatur quia numquam, accusantium quo, laboriosam incidunt quidem quae recusandae sunt voluptate minima quaerat laborum esse reprehenderit? Dolore, incidunt magni.
                 Voluptate neque commodi autem reiciendis perspiciatis ad magni quod aperiam possimus voluptas eligendi aspernatur cupiditate error quam, expedita porro, veritatis est incidunt doloribus reprehenderit! Maxime cupiditate quidem ipsum saepe ipsam!
@@ -97,6 +99,7 @@ class Fixtures {
         $BlogPostRepository->save(
             (new BlogPost())
                 ->setTitle('Mon troisième article')
+                ->setChapo("Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.")
                 ->setPost('Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.
                 Praesentium fugiat obcaecati ea quasi ab soluta nemo exercitationem magnam consequatur quia numquam, accusantium quo, laboriosam incidunt quidem quae recusandae sunt voluptate minima quaerat laborum esse reprehenderit? Dolore, incidunt magni.
                 Voluptate neque commodi autem reiciendis perspiciatis ad magni quod aperiam possimus voluptas eligendi aspernatur cupiditate error quam, expedita porro, veritatis est incidunt doloribus reprehenderit! Maxime cupiditate quidem ipsum saepe ipsam!
@@ -109,6 +112,7 @@ class Fixtures {
         $BlogPostRepository->save(
             (new BlogPost())
                 ->setTitle('Mon quatrième article')
+                ->setChapo("Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.")
                 ->setPost('Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quod adipisci eligendi ducimus vero deleniti quisquam, quia saepe itaque officia natus voluptas excepturi neque hic culpa vitae veniam minima. Iusto.
                 Praesentium fugiat obcaecati ea quasi ab soluta nemo exercitationem magnam consequatur quia numquam, accusantium quo, laboriosam incidunt quidem quae recusandae sunt voluptate minima quaerat laborum esse reprehenderit? Dolore, incidunt magni.
                 Voluptate neque commodi autem reiciendis perspiciatis ad magni quod aperiam possimus voluptas eligendi aspernatur cupiditate error quam, expedita porro, veritatis est incidunt doloribus reprehenderit! Maxime cupiditate quidem ipsum saepe ipsam!
