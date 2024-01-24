@@ -1,4 +1,11 @@
 {
+    "name": "Blog de Thomas",
+    "short_name": "blog",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "description": "Un blog personnel",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
