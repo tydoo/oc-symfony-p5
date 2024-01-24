@@ -4,7 +4,7 @@ namespace Core;
 
 use ReflectionClass;
 use Core\Attribute\Entity;
-use Core\Interface\UserInterface;
+use Core\BlogInterface\UserInterface;
 
 class Security {
 
