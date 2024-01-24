@@ -34,6 +34,8 @@
 							</th>
 							<th scope="col">Commentaires
 							</th>
+							<th scope="col">Inscris le
+							</th>
 							<th scope="col">Action
 							</th>
 						</tr>
@@ -53,6 +55,7 @@
 								</td>
 								<td>{{ blogsPost[key] }}</td>
 								<td>{{ comments[key] }}</td>
+								<td>{{ user.createdAt|date("d/m/Y à H:i") }}</td>
 								<td>
 									<div class="flex gap-2 flex-col items-center w-full">
 										<a class="fr-btn fr-btn--tertiary" href="/administration/users/{{user.id}}" id="button-1362">

@@ -33,6 +33,12 @@
 							</th>
 							<th scope="col">Categorie
 							</th>
+							<th scope="col">Utilisateur
+							</th>
+							<th scope="col">Créer le
+							</th>
+							<th scope="col">MAJ le
+							</th>
 							<th scope="col">Commentaires
 							</th>
 							<th scope="col">Action
@@ -48,6 +54,11 @@
 								<td>
 									{{ article.category.name }}
 								</td>
+								<td>
+									{{ article.user.firstname ~ ' ' ~ article.user.lastname }}
+								</td>
+								<td>{{article.createdAt|date("d/m/Y à H:i")}}</td>
+								<td>{{article.updatedAt|date("d/m/Y à H:i")}}</td>
 								<td>{{ comments[key] }}</td>
 								<td>
 									<div class="flex gap-2 flex-col items-center w-full">
