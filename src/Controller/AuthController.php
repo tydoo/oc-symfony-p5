@@ -7,12 +7,11 @@ use App\Entity\User;
 use App\Repository\LevelRepository;
 use Core\Attribute\Route;
 use Core\Response\Response;
-use Core\AbstractController;
 use App\Repository\UserRepository;
 use Core\Attribute\isGranted;
 use Core\Response\RedirectResponse;
 
-class AuthController extends AbstractController {
+class AuthController {
 
     private readonly Security $security;
     private readonly UserRepository $userReposiotry;

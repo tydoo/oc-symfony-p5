@@ -7,7 +7,6 @@ use Core\Security;
 use App\Entity\Category;
 use Core\Attribute\Route;
 use Core\Response\Response;
-use Core\AbstractController;
 use Core\Attribute\isGranted;
 use App\Repository\UserRepository;
 use App\Repository\LevelRepository;
@@ -16,7 +15,7 @@ use App\Repository\CommentRepository;
 use App\Repository\BlogPostRepository;
 use App\Repository\CategoryRepository;
 
-class AdministrationController extends AbstractController {
+class AdministrationController {
 
     private readonly Security $security;
     private readonly UserRepository $userRepository;

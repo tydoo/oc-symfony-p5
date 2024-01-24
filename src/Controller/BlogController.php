@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
+use Exception;
+use Core\Security;
 use App\Entity\Comment;
 use Core\Attribute\Route;
 use Core\Response\Response;
-use Core\AbstractController;
+use App\Repository\CommentRepository;
 use App\Repository\BlogPostRepository;
 use App\Repository\CategoryRepository;
-use App\Repository\CommentRepository;
-use Core\Security;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 
-class BlogController extends AbstractController {
+class BlogController {
 
     private readonly BlogPostRepository $blogPostRepository;
     private readonly CommentRepository $commentRepository;
@@ -28,7 +28,7 @@ class BlogController extends AbstractController {
     public function article(int $id): Response {
         $article = $this->blogPostRepository->find($id);
         if (!$article) {
-            throw $this->createNotFoundException('Article non trouvé');
+            throw new Exception('Article non trouvé !', '404');
         }
 
         $converter = new GithubFlavoredMarkdownConverter([
@@ -75,7 +75,7 @@ class BlogController extends AbstractController {
         $category = $categoryRepository->find($id);
 
         if (!$category) {
-            throw $this->createNotFoundException('Catégorie non trouvée');
+            throw new Exception('Catégorie non trouvé !', '404');
         } else {
             $articles = $blogPostRepository->findBy(['category_id' => $category->getId()]);
 
