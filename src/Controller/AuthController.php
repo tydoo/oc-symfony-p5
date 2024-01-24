@@ -141,7 +141,7 @@ class AuthController {
         return new Response('auth/register_done.html.twig');
     }
 
-    private function checkEmail($email): bool {
+    private function checkEmail(string $email): bool {
         $pattern = '/^\S+@\S+\.\S+$/';
 
         if (preg_match($pattern, $email)) {
@@ -151,7 +151,7 @@ class AuthController {
         }
     }
 
-    private function checkPassword($password): bool {
+    private function checkPassword(string $password): bool {
         $pattern = '/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{12,}$/';
 
         if (preg_match($pattern, $password)) {

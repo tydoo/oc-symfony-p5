@@ -113,7 +113,7 @@ class AdministrationController {
         return new RedirectResponse('administration_users');
     }
 
-    private function checkEmail($email): bool {
+    private function checkEmail(string $email): bool {
         $pattern = '/^\S+@\S+\.\S+$/';
 
         if (preg_match($pattern, $email)) {

@@ -86,7 +86,7 @@ class PagesController {
         return new Response('contact_done.html.twig');
     }
 
-    private function checkEmail($email): bool {
+    private function checkEmail(string $email): bool {
         $pattern = '/^\S+@\S+\.\S+$/';
 
         if (preg_match($pattern, $email)) {
