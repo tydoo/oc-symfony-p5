@@ -24,6 +24,16 @@ npm run build
 php -S localhost:8000 -t ./public
 ```
 
+### Base de donnée
+Une fois le serveur de base de données lancé (docker ou autres), utilisez le fichier SQL se trouvant à la racine.
+
+### Fixtures
+Une fois la base de données prête, utilisez les fixtures.
+```bash
+php ./src/Fixtures.php
+```
+
+### Utilisateurs
 |Utilisateur|Mot de passe|Level|
 |:---------------:|:---------------:|:---------------:|
 |thomas@tydoo.fr|123456|Administrateur|
