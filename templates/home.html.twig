@@ -12,17 +12,31 @@
 		</div>
 	</nav>
 	<main role="main" id="content">
-		<figure class="fr-quote !m-8">
-			<blockquote cite="[À MODIFIER - https://lien-vers-la-source.fr]">
-				<p class="fr-text--lg">« Explorez le monde captivant du développement web à travers les yeux d'un passionné qui a commencé à coder à l'âge de 14 ans. Bienvenue sur mon blog personnel, où l'expérience rencontre la créativité, et les lignes de code racontent mon parcours en tant que développeur web. »</p>
-			</blockquote>
-			<figcaption>
-				<p class="fr-quote__author">Thomas</p>
-			</figcaption>
-		</figure>
-		<h1 class="w-full text-center">Tous mes articles</h1>
 		<div class="fr-container">
+			<figure class="fr-quote !m-8">
+				<blockquote cite="[À MODIFIER - https://lien-vers-la-source.fr]">
+					<p class="fr-text--lg">« Explorez le monde captivant du développement web à travers les yeux d'un passionné qui a commencé à coder à l'âge de 14 ans. Bienvenue sur mon blog personnel, où l'expérience rencontre la créativité, et les lignes de code racontent mon parcours en tant que développeur web. »</p>
+				</blockquote>
+				<figcaption>
+					<p class="fr-quote__author">Thomas</p>
+				</figcaption>
+			</figure>
+			<h1 class="w-full text-center">Tous mes articles</h1>
+
 			{% include "partials/_list_post.html.twig" with {blogPosts,comments}%}
+
+			<div id="card-1932" class="fr-card fr-enlarge-link fr-card--lg fr-card--download">
+				<div class="fr-card__body">
+					<div class="fr-card__content">
+						<h3 class="fr-card__title">
+							<a href="/CV.BOYER.Thomas_signed.pdf">Télécharger mon CV</a>
+						</h3>
+						<div class="fr-card__end">
+							<p class="fr-card__detail">PDF - 1,1 ko</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</main>
 {% endblock %}
