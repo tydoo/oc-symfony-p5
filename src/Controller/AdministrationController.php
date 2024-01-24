@@ -342,9 +342,9 @@ class AdministrationController extends AbstractController {
                         $article
                             ->setTitle($title)
                             ->setCategory($this->categoryRepository->find($_POST['category']))
+                            ->setUser($this->userRepository->find($_POST['user']))
                             ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
                             ->setChapo(htmlspecialchars(strip_tags(trim(addslashes($_POST['chapo'])))))
-                            ->setUser($this->security->user)
                             ->setUpdatedAt(new \DateTime());
                         $this->blogPostRepository->save($article);
                         $this->security->removeSession('articles_edit');
@@ -362,6 +362,7 @@ class AdministrationController extends AbstractController {
                 'article' => $article,
                 'categories' => $this->categoryRepository->findAll(),
                 '_csrf_token' => $this->security->generateToken('articles_edit'),
+                'users' => $this->userRepository->findAll(),
             ]
         );
     }

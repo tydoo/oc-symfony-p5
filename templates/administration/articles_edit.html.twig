@@ -74,6 +74,18 @@
 											<div class="fr-fieldset__element">
 												<div class="fr-input-group" id="input-group-9175">
 													<label class="fr-label" for="name-9166">
+														Utilisateur
+													</label>
+													<select name="user" class="fr-select">
+														{% for user in users %}
+															<option {{ user.id == article.user.id ? 'selected':'' }} value="{{ user.id }}">{{ user.firstname ~ ' ' ~ user.lastname }}</option>
+														{% endfor %}
+													</select>
+												</div>
+											</div>
+											<div class="fr-fieldset__element">
+												<div class="fr-input-group" id="input-group-9175">
+													<label class="fr-label" for="name-9166">
 														Catégorie
 													</label>
 													<select name="category" class="fr-select">
