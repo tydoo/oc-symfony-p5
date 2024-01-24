@@ -14,7 +14,7 @@ class CategoriesExtension extends AbstractExtension implements GlobalsInterface 
         ];
     }
 
-    private function getCategories() {
+    private function getCategories(): array {
         return (new CategoryRepository())->findAll();
     }
 }
