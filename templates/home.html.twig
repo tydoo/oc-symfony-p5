@@ -12,7 +12,15 @@
 		</div>
 	</nav>
 	<main role="main" id="content">
-		<h1>Tous mes articles</h1>
+		<figure class="fr-quote !m-8">
+			<blockquote cite="[À MODIFIER - https://lien-vers-la-source.fr]">
+				<p class="fr-text--lg">« Explorez le monde captivant du développement web à travers les yeux d'un passionné qui a commencé à coder à l'âge de 14 ans. Bienvenue sur mon blog personnel, où l'expérience rencontre la créativité, et les lignes de code racontent mon parcours en tant que développeur web. »</p>
+			</blockquote>
+			<figcaption>
+				<p class="fr-quote__author">Thomas</p>
+			</figcaption>
+		</figure>
+		<h1 class="w-full text-center">Tous mes articles</h1>
 		<div class="fr-container">
 			{% include "partials/_list_post.html.twig" with {blogPosts,comments}%}
 		</div>
