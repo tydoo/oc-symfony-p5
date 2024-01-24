@@ -285,15 +285,18 @@ class AdministrationController extends AbstractController {
                     $error = 4;
                     $message = "Le titre de l'article n'est pas valide.";
                 } else {
-                    $article = new BlogPost();
-                    $article
-                        ->setTitle($title)
-                        ->setCategory($this->categoryRepository->find($_POST['category']))
-                        ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
-                        ->setUser($this->security->user);
-                    $this->blogPostRepository->save($article);
-                    $this->security->removeSession('articles_create');
-                    return new RedirectResponse('administration_articles');
+                    if ($_POST['chapo'] !== '') {
+                        $article = new BlogPost();
+                        $article
+                            ->setTitle($title)
+                            ->setCategory($this->categoryRepository->find($_POST['category']))
+                            ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
+                            ->setChapo(htmlspecialchars(strip_tags(trim(addslashes($_POST['chapo'])))))
+                            ->setUser($this->security->user);
+                        $this->blogPostRepository->save($article);
+                        $this->security->removeSession('articles_create');
+                        return new RedirectResponse('administration_articles');
+                    }
                 }
             }
         }
@@ -335,15 +338,18 @@ class AdministrationController extends AbstractController {
                     $error = 4;
                     $message = "Le titre de l'article n'est pas valide.";
                 } else {
-                    $article
-                        ->setTitle($title)
-                        ->setCategory($this->categoryRepository->find($_POST['category']))
-                        ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
-                        ->setUser($this->security->user)
-                        ->setUpdatedAt(new \DateTime());
-                    $this->blogPostRepository->save($article);
-                    $this->security->removeSession('articles_edit');
-                    return new RedirectResponse('administration_articles');
+                    if ($_POST['chapo'] !== '') {
+                        $article
+                            ->setTitle($title)
+                            ->setCategory($this->categoryRepository->find($_POST['category']))
+                            ->setPost(htmlspecialchars(strip_tags(trim(addslashes($_POST['message'])))))
+                            ->setChapo(htmlspecialchars(strip_tags(trim(addslashes($_POST['chapo'])))))
+                            ->setUser($this->security->user)
+                            ->setUpdatedAt(new \DateTime());
+                        $this->blogPostRepository->save($article);
+                        $this->security->removeSession('articles_edit');
+                        return new RedirectResponse('administration_articles');
+                    }
                 }
             }
         }
