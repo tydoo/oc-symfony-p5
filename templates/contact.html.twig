@@ -42,6 +42,18 @@
 													</div>
 												</div>
 											{% endif %}
+											<div class="fr-fieldset__element">
+												<div class="fr-input-group" id="input-group-9175">
+													<label class="fr-label" for="username-9166">
+														Nom et prénom
+													</label>
+													{% if app.user %}
+														<input type="hidden" name="nomprenom" value="{{app.user.firstname ~ ' ' ~ app.user.lastname}}">
+													{% endif %}
+													<input {% if app.user %} value="{{app.user.firstname ~ ' ' ~ app.user.lastname}}" disabled {% endif %} class="fr-input" autocapitalize="off" autocorrect="off" aria-describedby="username-9166-messages" name="nomprenom" id="username-9166" type="text" required>
+													<div class="fr-messages-group" id="username-9166-messages" aria-live="polite"></div>
+												</div>
+											</div>
 											<div class="fr-fieldset__element {{ error ? 'fr-fieldset--error' : '' }}">
 												<div class="fr-input-group" id="input-group-9175">
 													<label class="fr-label" for="username-9166">

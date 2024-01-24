@@ -57,9 +57,9 @@ class PagesController {
                     $message = "L'adresse email n'est pas valide.";
                 } else {
                     $message = htmlspecialchars(strip_tags(trim(addslashes($_POST['message']))));
-
+                    $nomprenom = htmlspecialchars(strip_tags(trim(addslashes($_POST['nomprenom']))));
                     $mail = new Message;
-                    $mail->setFrom("$username <$username>")
+                    $mail->setFrom("$nomprenom <$username>")
                         ->addTo('thomas@tydoo.fr')
                         ->setSubject('Mesage du blog')
                         ->setBody($message);
