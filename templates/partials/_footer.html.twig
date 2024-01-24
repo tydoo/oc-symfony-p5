@@ -50,9 +50,22 @@
 					</p>
 				</a>
 			</div>
-			<div class="fr-footer__content">
-				<p class="fr-footer__content-desc">Le Système de Design de l'État est utilisé sur ce site dans le cadre d'une formation OpenClassrooms. Ce n'est pas un site officiel de l'état Français.</p>
-			</div>
+			{% if is_granted('Administrateur') %}
+				<div class="fr-footer__content">
+					<p class="fr-footer__content-desc">Le Système de Design de l'État est utilisé sur ce site dans le cadre d'une formation OpenClassrooms. Ce n'est pas un site officiel de l'état Français.</p>
+					<ul class="fr-footer__content-list">
+						<li class="fr-footer__content-item">
+							<a title="Gestion des utilisateurs" id="footer__content-link-6770" class="fr-footer__content-link" href="/administration/users">Gestion des utilisateurs</a>
+						</li>
+						<li class="fr-footer__content-item">
+							<a title="Gestion des articles" id="footer__content-link-6771" class="fr-footer__content-link" href="/administration/articles">Gestion des articles</a>
+						</li>
+						<li class="fr-footer__content-item">
+							<a title="Gestion des catégories" id="footer__content-link-6772" class="fr-footer__content-link" href="/administration/categories">Gestion des catégories</a>
+						</li>
+					</ul>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 </footer>
